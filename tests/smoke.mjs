@@ -1,0 +1,27 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {DEFAULT_CONTENT,publicContent,publishContent,supabaseEnabled} from '../content-store.js';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+let checks=0;
+const ok=(assertion,name)=>{if(!assertion)throw new Error('FAIL: '+name);checks++;console.log('PASS',name);};
+const c=DEFAULT_CONTENT;
+ok(c.slides.length>=3,'three or more auto hero slides');
+ok(c.packages.length>=5,'tour package catalogue');
+ok(c.packages.every(p=>p.days===p.route.length),'day-by-day itinerary length');
+ok(c.packages.every(p=>p.route.every(d=>d.description&&d.images?.length)),'day descriptions & images present');
+ok(c.packages.every(p=>!Object.keys(p).some(key=>key.toLowerCase().includes('price'))),'no public prices');
+ok(c.reviews.length===0,'no fabricated reviews');
+const pics=[c.settings.logo,c.settings.journeyImage,c.settings.tourWelcomeImage,...c.slides.map(s=>s.image),...c.destinations.map(d=>d.image),...c.galleries.map(g=>g.image),...c.packages.flatMap(p=>[p.image,...p.route.flatMap(d=>d.images.map(im=>im.src))])];
+ok(pics.every(src=>fs.existsSync(path.join(root,src))),'all bundled asset paths exist');
+for(const file of ['index.html','admin.html','app.js','admin.js','theme-v2.css','docs/supabase.sql','supabase-config.js'])ok(fs.existsSync(path.join(root,file)),file+' exists');
+const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+for(const id of ['heroSlides','heroDots','heroKicker','heroTitle','heroLead','galleryGrid','reviewsGrid','packageModalContent','photoLightbox','fullPhoto','photoClose'])ok(html.includes(`id="${id}"`),'DOM id '+id);
+ok(fs.readFileSync(path.join(root,'docs/supabase.sql'),'utf8').includes('row level security'),'Supabase RLS included');
+ok(!supabaseEnabled,'demo configuration has no invented Supabase credentials');
+// Exercise the same local persistence module used by the browser CMS.
+const memory=new Map();globalThis.localStorage={getItem:k=>memory.get(k)||null,setItem:(k,v)=>memory.set(k,v),removeItem:k=>memory.delete(k)};
+const updated=structuredClone(c);updated.slides[0].kicker='SMOKE TEST EDIT';
+await publishContent(updated);
+ok((await publicContent()).slides[0].kicker==='SMOKE TEST EDIT','local CMS Save & Publish round-trip');
+console.log(`\n${checks} static / content-store tests passed`);

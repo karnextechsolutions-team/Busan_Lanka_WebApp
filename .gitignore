@@ -1,0 +1,14 @@
+# Files not suitable for Git / Netlify
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+.netlify/
+.DS_Store
+*.log
+__pycache__/
+*.bak
+supabase/.branches/
+supabase/.temp/
+supabase/.profiles/
