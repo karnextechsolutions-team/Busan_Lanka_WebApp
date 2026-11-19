@@ -1,0 +1,203 @@
+/* Busan Lanka V4.2 — exact client logo palette watercolor + wave system.
+   Brand hues ONLY: #1B673D #E99E45 #FAD888 #F4566C #CC0503 #F75703.
+   Screen layout and all app behaviour remain from client-approved PDF V4. */
+:root {
+  --brand-green: #1B673D;
+  --brand-gold: #E99E45;
+  --brand-light-gold: #FAD888;
+  --brand-pink: #F4566C;
+  --brand-red: #CC0503;
+  --brand-orange: #F75703;
+  --brand-ivory: #FFF9F2;
+  --brand-ivory-light: #FFFDF9;
+  --brand-main: linear-gradient(105deg,#1B673D 0%,#E99E45 17%,#FAD888 37%,#F75703 57%,#F4566C 80%,#CC0503 100%);
+  --brand-cta: linear-gradient(106deg,#CC0503 0%,#F4566C 44%,#F75703 78%,#E99E45 100%);
+  --brand-warm: linear-gradient(112deg,#FAD888 0%,#E99E45 45%,#F75703 100%);
+  --brand-gradient: var(--brand-cta);
+  --gradient: var(--brand-main);
+  --pink: var(--brand-pink);
+  --blue: var(--brand-red);
+}
+html { background:#FFF9F2; }
+body { background:#FFF9F2; color:#25211E; }
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible {
+  outline-color:#CC0503;
+}
+/* Photographic hero and glass header stay as in the PDF. Brand hues used in buttons. */
+.site-header .brand-type small,
+.site-header .header-plan,
+.button-gradient,
+.pdf-search-submit,
+#submitEnquiryButton,
+.floating-ai,
+.ai-orb,.guide-avatar {
+  background:var(--brand-cta)!important;
+  color:#fff!important;
+}
+.hero h1 em { color:#FAD888!important;
+  background:linear-gradient(100deg,#FAD888 0%,#E99E45 27%,#F75703 58%,#F4566C 80%,#CC0503 100%)!important;
+  background-clip:text!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent;
+}
+.pdf-explore-btn {background:var(--brand-warm)!important;color:#25211E!important;}
+.hero .pdf-proof-dot,.hero-proof .pdf-proof-dot {color:#FAD888;}
+.hero .pdf-proof-item:nth-child(2) .pdf-proof-dot {color:#F75703;}
+.hero .pdf-proof-item:nth-child(3) .pdf-proof-dot {color:#F4566C;}
+.pdf-search { border-top:3px solid #E99E45;
+  background:linear-gradient(121deg,rgba(255,253,249,.99) 0%,rgba(255,249,242,.97) 55%,rgba(255,240,232,.97) 100%);
+  box-shadow:0 22px 56px rgba(135,64,38,.17),0 8px 22px rgba(244,86,108,.08);
+}
+.pdf-search-field select,.pdf-search-field input {background:#FFFBF5;border-color:#EDE0D3;}
+.pdf-search-status {background:#FFF0DD;color:#77361A;}
+/* A broad, luminous watercolor canvas is easier on the eyes than pure white.
+   Calm mid-section ensures text and actual travel photography remain readable. */
+.pdf-destinations,.ai-section {position:relative;isolation:isolate;}
+.pdf-destinations::before,.ai-section::before {
+  content:"";position:absolute;inset:0 auto 0 50%;width:100vw;transform:translateX(-50%);
+  z-index:-1;pointer-events:none;
+  background:
+    url('./assets/busan-logo-watercolor-v42.svg') center center/cover no-repeat,
+    radial-gradient(ellipse 36% 48% at 5% 22%,rgba(247,87,3,.16),transparent 98%),
+    radial-gradient(ellipse 38% 40% at 98% 36%,rgba(244,86,108,.17),transparent 97%),
+    linear-gradient(115deg,#FFF6E9 0%,#FFF9F2 45%,#FFF0EB 100%);
+}
+.pdf-destinations::after,.ai-section::after {
+  content:"";position:absolute;left:50%;bottom:-20px;width:100vw;height:clamp(110px,16vw,230px);
+  transform:translateX(-50%);z-index:-1;pointer-events:none;
+  background:url('./assets/busan-logo-wave-v42.svg') center bottom/100% 100% no-repeat;
+  opacity:.97;
+}
+.pdf-destinations .section-kicker,.section-kicker {color:#1B673D;}
+.pdf-destinations .pdf-view-all{border-bottom-color:#CC0503;}
+.destination-card{box-shadow:0 16px 43px rgba(89,40,20,.16)!important;}
+.destination-card>.pdf-dest-badge{background:#FAD888!important;color:#4E291C!important;}
+.destination-card:nth-child(2)>.pdf-dest-badge{background:#F4566C!important;color:#fff!important;}
+.destination-card:nth-child(3)>.pdf-dest-badge{background:#F75703!important;color:#fff!important;}
+.destination-card:nth-child(4)>.pdf-dest-badge{background:#1B673D!important;color:#fff!important;}
+/* The service section gets warm amber, coral and golden waves, NOT neon fills. */
+.pdf-services{
+ position:relative;isolation:isolate;
+ background:
+   url('./assets/busan-logo-watercolor-v42.svg') center 15% / cover no-repeat,
+   radial-gradient(ellipse 58% 40% at 4% 26%,rgba(247,87,3,.20),transparent 96%),
+   radial-gradient(ellipse 55% 55% at 98% 72%,rgba(244,86,108,.21),transparent 96%),
+   linear-gradient(120deg,#FFEEDB 0%,#FFF5EA 46%,#FFEAEA 100%)!important;
+}
+.pdf-services::after{
+ content:"";position:absolute;inset:auto 0 -24px;height:clamp(100px,15vw,205px);
+ background:url('./assets/busan-logo-wave-v42.svg') center bottom/100% 100% no-repeat;
+ pointer-events:none;opacity:.85;z-index:0;
+}
+.pdf-services>.container{position:relative;z-index:1;}
+.pdf-service {border:1px solid rgba(233,158,69,.30)!important;
+  box-shadow:0 17px 42px rgba(123,58,39,.10);backdrop-filter:blur(5px);
+}
+.pdf-service:nth-child(1){background:linear-gradient(147deg,#FFFDF9 10%,#FFE4C9 100%)!important;}
+.pdf-service:nth-child(2){background:linear-gradient(147deg,#FFFDF9 10%,#FFE1E5 100%)!important;}
+.pdf-service:nth-child(3){background:linear-gradient(147deg,#FFFDF9 10%,#FFF0CF 100%)!important;}
+.pdf-service:nth-child(4){background:linear-gradient(103deg,#FFEADA 0%,#FFF9EF 41%,#FFE3E8 100%)!important;}
+.pdf-icon-orange {background:linear-gradient(130deg,#FAD888,#F75703)!important;}
+.pdf-icon-coral {background:linear-gradient(130deg,#F4566C,#E99E45)!important;}
+.pdf-icon-green {background:linear-gradient(130deg,#FAD888,#1B673D)!important;}
+.pdf-icon-rose {background:linear-gradient(130deg,#F75703,#CC0503)!important;color:#fff!important;}
+.pdf-service-icon{box-shadow:0 8px 17px rgba(152,58,25,.11);}
+/* Kandy photo: avoid the previous oversaturated solid-green wash. */
+.pdf-why {background:
+  linear-gradient(105deg,rgba(31,31,25,.93) 0%,rgba(62,37,24,.82) 52%,rgba(27,60,42,.66) 100%),
+  var(--pdf-why-bg,url('./assets/kandy-temple.webp')) center/cover!important;
+}
+.pdf-why-list article {background:rgba(255,249,242,.15);border:1px solid rgba(250,216,136,.26);}
+.pdf-why .section-kicker,.pdf-why-list article>span{color:#FAD888;}
+/* Tour catalogue: multi-layer watercolor instead of washed-out cool blue. */
+.section-tours{
+  position:relative;isolation:isolate;
+  background:
+    url('./assets/busan-logo-watercolor-v42.svg') center 43% / cover no-repeat,
+    radial-gradient(ellipse at 20% 20%,rgba(233,158,69,.18),transparent 54%),
+    radial-gradient(ellipse at 84% 73%,rgba(244,86,108,.16),transparent 58%),
+    linear-gradient(115deg,#FFF1E3 0%,#FFFAED 46%,#FFE7E9 100%)!important;
+}
+.section-tours::before{
+ content:"";position:absolute;inset:-12px 0 auto;height:clamp(110px,14vw,210px);
+ background:url('./assets/busan-logo-wave-v42.svg') center top / 100% 100% no-repeat;
+ pointer-events:none;opacity:.77;z-index:0;
+}
+.section-tours>.container{position:relative;z-index:1;}
+.section-tours .tour-card {background:rgba(255,253,249,.97)!important;
+ border:1px solid rgba(233,158,69,.31)!important;
+ box-shadow:0 16px 39px rgba(96,46,33,.12)!important;}
+.section-tours .tour-badge,.filters .filter.active {background:var(--brand-cta)!important;color:white!important;}
+.section-tours .tour-kicker{color:#1B673D!important;}
+.section-tours .text-action{color:#CC0503!important;}
+.section-tours .round-arrow{background:#FFE6CB!important;color:#CC0503!important;}
+.section-tours .filter:not(.active){background:#FFFBF6;border:1px solid #EBD2BF;}
+/* AI panels and QR guide: warm + coral glows, no stray blue/purple hues. */
+.ai-section::before {background:
+  url('./assets/busan-logo-watercolor-v42.svg') center center/cover no-repeat,
+  radial-gradient(ellipse at 3% 75%,rgba(247,87,3,.15),transparent 55%),
+  radial-gradient(ellipse at 94% 14%,rgba(244,86,108,.19),transparent 57%),
+  linear-gradient(114deg,#FFF2E3 0%,#FFF8EE 45%,#FFE7EC 100%);
+}
+.ai-preview {background:linear-gradient(130deg,#FFFEFA 0%,#FFF6EF 48%,#FFE8EB 100%)!important;
+  border:1px solid rgba(244,86,108,.28)!important;
+  box-shadow:0 20px 53px rgba(123,57,55,.16)!important;
+}
+.ai-left h2 em,.section-heading h2 em,.journey-copy h2 em,.gallery-section h2 em {color:#CC0503!important;}
+.ai-bubble.guest {background:#1B673D!important;color:#fff;}
+.guide-form button,.journey-phone-btn{background:var(--brand-cta)!important;color:#fff!important;}
+.journey-section {background:
+  radial-gradient(ellipse 62% 64% at 5% 77%,rgba(233,158,69,.21),transparent 90%),
+  radial-gradient(ellipse 56% 64% at 94% 17%,rgba(244,86,108,.18),transparent 90%),
+  url('./assets/busan-logo-watercolor-v42.svg') center/cover no-repeat,
+  linear-gradient(114deg,#FFE9DC,#FFF8EB 54%,#FFE9E9)!important;}
+.journey-steps>div{border-color:rgba(233,158,69,.38);}
+.gallery-section {background:
+  url('./assets/busan-logo-watercolor-v42.svg') center center/cover no-repeat,
+  radial-gradient(ellipse 55% 60% at 8% 78%,rgba(247,87,3,.17),transparent 90%),
+  linear-gradient(116deg,#FFF3E0,#FFF6EB 43%,#FFE7EB)!important;}
+.gallery-item{box-shadow:0 14px 35px rgba(99,49,29,.16);}
+.review-tile{background:linear-gradient(125deg,rgba(255,253,249,.97),rgba(255,235,218,.95))!important;border-color:rgba(233,158,69,.30)!important;}
+.review-empty{background:rgba(255,253,247,.89)!important;border-color:#E99E45!important;}
+.review-stars{color:#F75703!important;}
+/* CTA: strong 6-color logo flow, precise colors throughout. */
+.last-cta {background:
+ url('./assets/busan-logo-watercolor-v42.svg') center/cover no-repeat,
+ radial-gradient(ellipse at 8% 48%,rgba(247,87,3,.20),transparent 60%),
+ linear-gradient(105deg,#FFF0DE 0%,#FFF6EC 48%,#FFE6E8 100%)!important;}
+.last-cta .cta-inner {
+ background:
+  linear-gradient(99deg,rgba(204,5,3,.95) 0%,rgba(244,86,108,.89) 43%,rgba(247,87,3,.84) 80%,rgba(233,158,69,.88) 100%),
+  var(--pdf-cta-bg,url('./assets/sigiriya-heritage.webp')) center/cover!important;
+ box-shadow:0 25px 60px rgba(204,5,3,.19)!important;
+}
+.last-cta .button-white {background:#FAD888!important;color:#2A2119!important;}
+/* PDF footer and mobile tabs: keep dark contrast; swap decorative accent colors. */
+.footer {border-image:linear-gradient(90deg,#1B673D 0%,#E99E45 20%,#FAD888 38%,#F75703 58%,#F4566C 77%,#CC0503 100%) 1!important;}
+.footer .pdf-footer-explore h3,.footer .pdf-footer-contact h3{color:#FAD888;}
+#packageModal .itinerary-day-btn.active .day-number,#submitEnquiryButton{background:var(--brand-cta)!important;color:#fff!important;}
+#packageModal .itinerary-day-btn.active{background:#FFF0DE;border-color:#E99E45;}
+#packageModal .day-label{background:#FAD888;color:#5B2B1A;}
+@media(max-width:600px){
+  .pdf-destinations::before{
+    background:
+      radial-gradient(ellipse at 0% 24%,rgba(247,87,3,.25),transparent 57%),
+      radial-gradient(ellipse at 96% 66%,rgba(244,86,108,.23),transparent 60%),
+      radial-gradient(ellipse at 41% 100%,rgba(233,158,69,.20),transparent 60%),
+      linear-gradient(130deg,#FFF0DC,#FFF8F0 48%,#FFE8E7);
+  }
+  .ai-section::before{
+    background:
+      radial-gradient(ellipse at 98% 14%,rgba(244,86,108,.22),transparent 60%),
+      radial-gradient(ellipse at 3% 81%,rgba(247,87,3,.22),transparent 57%),
+      linear-gradient(128deg,#FFF2DE,#FFF7EA 52%,#FFEAE9);
+  }
+  .pdf-destinations::after,.ai-section::after{height:105px;opacity:.90;}
+  .pdf-services::after{height:100px;opacity:.82;}
+  .section-tours::before{height:110px;opacity:.72;}
+  .bottom-nav .is-active:not(.bottom-ai){background:rgba(233,158,69,.18)!important;color:#FAD888!important;}
+  .bottom-nav .bottom-ai .mobile-nav-icon{background:var(--brand-cta)!important;}
+  .pdf-service{border-radius:18px;}
+}
+@media(prefers-reduced-motion:reduce){
+  .pdf-destinations::before,.pdf-services::after,.ai-section::before,
+  .gallery-section,.destination-card img{animation:none!important;}
+}

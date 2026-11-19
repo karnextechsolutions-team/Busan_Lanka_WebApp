@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 380" preserveAspectRatio="none">
+<defs>
+ <linearGradient id="logo" x1="0" x2="1" y1="0" y2="0"><stop stop-color="#1B673D"/><stop offset=".15" stop-color="#E99E45"/><stop offset=".35" stop-color="#FAD888"/><stop offset=".57" stop-color="#F75703"/><stop offset=".78" stop-color="#F4566C"/><stop offset="1" stop-color="#CC0503"/></linearGradient>
+ <linearGradient id="warm" x1="0" x2="1" y1="0" y2="0"><stop stop-color="#E99E45"/><stop offset=".36" stop-color="#F75703"/><stop offset=".7" stop-color="#F4566C"/><stop offset="1" stop-color="#CC0503"/></linearGradient>
+ <filter id="smoke"><feGaussianBlur stdDeviation="22"/></filter>
+</defs>
+<path d="M-70 178 C160 48 405 288 735 132 C1100 -35 1415 240 1685 60 L1685 310 C1415 190 1190 370 790 270 C430 175 240 392 -70 285Z" fill="url(#logo)" opacity=".29" filter="url(#smoke)"/>
+<path d="M-50 260 C275 120 485 340 835 200 C1180 55 1435 260 1660 155 L1660 327 C1335 270 1120 384 795 315 C490 245 220 411 -50 344Z" fill="url(#warm)" opacity=".20"/>
+<path d="M-90 206 C220 95 470 315 800 170 S1395 215 1650 103" fill="none" stroke="url(#logo)" stroke-width="9" opacity=".30"/>
+</svg>

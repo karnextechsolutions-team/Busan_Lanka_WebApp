@@ -1,0 +1,18 @@
+/* Editable section hub and slider controls */
+.homepage-group{margin:13px 0 18px;border-radius:19px;background:rgba(255,255,255,.93);border:1px solid #e9dfd5;overflow:hidden;box-shadow:0 7px 23px rgba(35,26,20,.04)}
+.homepage-group>summary{padding:21px 24px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#26252a;font-size:17px;font-weight:850}
+.homepage-group>summary span{color:#795f65;font-size:11px;white-space:nowrap;font-weight:600}
+.homepage-group .homepage-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:2px 24px 26px}
+.homepage-group .field{min-width:0}.homepage-group .field textarea{font-size:14px;line-height:1.5;min-height:78px}
+.homepage-media{margin:18px 0 22px;max-width:none!important}
+.editor-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+.slider-options{margin:0 0 22px;max-width:none!important}
+.slider-options .check-field{gap:10px;font-weight:700}
+.slider-options input[type="checkbox"]{width:20px;height:20px;accent-color:#D81466}
+.slider-options .field[data-path]{max-width:340px}
+@media(max-width:760px){
+ .homepage-group>summary{padding:18px 15px;font-size:14px;align-items:flex-start}
+ .homepage-group .homepage-fields{grid-template-columns:1fr;padding:0 14px 21px;gap:11px}
+ .homepage-group>summary span{font-size:10px}
+ .editor-links .neutral-btn{flex:1 1 135px}
+}

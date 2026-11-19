@@ -1,124 +1,141 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#141414" />
-  <meta name="description" content="Explore Sri Lanka with Busan Lanka Travel & Tours. Discover tailored journeys and your personal travel companion." />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <link rel="icon" type="image/png" href="./assets/icon-192.png" />
-  <link rel="apple-touch-icon" href="./assets/icon-192.png" />
-  <link rel="manifest" href="./manifest.webmanifest" />
-  <link rel="stylesheet" href="./styles.css" />
-  <link rel="stylesheet" href="./theme-v2.css" />
-  <link rel="stylesheet" href="./responsive-v3-2.css" />
-  <title>Busan Lanka — Explore Sri Lanka</title>
-</head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#FFF9F2" name="theme-color"/>
+<meta content="Busan Lanka Travel &amp; Tours — curated Sri Lanka journeys, custom itineraries, local guides and transfers. Discover every destination and plan your trip." name="description"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="default" name="apple-mobile-web-app-status-bar-style"/>
+<link href="./assets/icon-192.png" rel="icon" type="image/png"/>
+<link href="./assets/icon-192.png" rel="apple-touch-icon"/>
+<link href="./manifest.webmanifest" rel="manifest"/>
+<link href="./styles.css" rel="stylesheet"/>
+<link href="./theme-v2.css" rel="stylesheet"/>
+<link href="./responsive-v3-2.css" rel="stylesheet"/>
+
+
+<title>Busan Lanka — Explore Sri Lanka</title>
+<link href="./pdf-home-v4.css" rel="stylesheet"/><link href="./brand-background-v4-2.css" rel="stylesheet"/><link href="./brand-polish-v4-3.css" rel="stylesheet"/><link href="./guest-reviews.css?v=47" rel="stylesheet"/><link href="./watercolor-ui-v4-6.css?v=46" rel="stylesheet"/><link href="./engagement-v4-7.css?v=47" rel="stylesheet"/></head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#home" aria-label="Busan Lanka home">
-        <img src="./assets/logo-mark.jpg" alt="" />
-        <span class="brand-type"><b>BUSAN LANKA</b><small>TRAVEL & TOURS</small></span>
-      </a>
-      <nav class="desktop-nav" aria-label="Main navigation">
-        <a class="active" href="#home" data-i18n="home">Home</a>
-        <a href="#destinations" data-i18n="destinations">Destinations</a>
-        <a href="#tours" data-i18n="tours">Our Tours</a>
-        <a href="#stories" data-i18n="stories">Guest Stories</a>
-        <a href="#about" data-i18n="about">About</a>
-      </nav>
-      <div class="header-actions">
-        <label class="lang-select"><span aria-hidden="true">◎</span><span class="sr-only">Language</span><select id="langSelect" aria-label="Language"><option value="en">EN</option><option value="de">DE</option><option value="fr">FR</option><option value="ru">RU</option><option value="ko">KO</option><option value="si">සිං</option></select></label>
-        <button type="button" class="button button-small button-gradient header-plan" id="headerContact" data-i18n="planTrip">Plan my trip</button>
-      </div>
-    </div>
-  </header>
+<header class="site-header">
+<div class="container header-inner">
+<a aria-label="Busan Lanka home" class="brand" href="#home">
+<img alt="" src="./assets/logo-mark.jpg"/>
+<span class="brand-type"><b>BUSAN LANKA</b><small>TRAVEL &amp; TOURS</small></span>
+</a>
+<nav aria-label="Main navigation" class="desktop-nav"><a data-i18n="destinations" href="#destinations">Destinations</a><a data-i18n="pdfServicesNav" href="#services">Services</a><a href="#reviews" id="reviewHeaderLink">Reviews</a><a data-i18n="pdfWhyNav" href="#why-us">Why us</a><a data-i18n="pdfContactNav" href="#contact">Contact</a></nav>
+<div class="header-actions"><button type="button" class="public-menu-toggle" id="publicMenuToggle" aria-controls="publicMobileMenu" aria-expanded="false" aria-label="Open navigation menu"><span>☰</span><small>Menu</small></button>
+<label class="lang-select"><span aria-hidden="true">◎</span><span class="sr-only">Language</span><select aria-label="Language" id="langSelect"><option value="en">EN</option><option value="de">DE</option><option value="fr">FR</option><option value="ru">RU</option><option value="ko">KO</option><option value="si">සිං</option></select></label>
+<button class="button button-small button-gradient header-plan" data-i18n="pdfBookTour" id="headerContact" type="button">Book a tour</button>
+</div>
+</div>
+</header>
+<nav id="publicMobileMenu" class="public-mobile-menu" aria-label="Mobile main menu" hidden>
+ <a href="#home">⌂ Home</a><a href="#destinations">✧ Destinations</a><a href="#services">◈ Services</a><a href="#reviews">★ Reviews</a><a href="#why-us">✦ Why Busan Lanka</a><a href="#tours">▤ Tour packages</a><a href="#contact">✉ Contact</a>
+ <button type="button" id="mobileMenuContact">Plan a trip ↗</button>
+</nav>
+<main>
+<section class="hero pdf-hero" id="home">
+<div aria-hidden="true" class="hero-slides" id="heroSlides"></div>
+<div class="container hero-content">
+<p class="eyebrow light"><span class="eyebrow-dot"></span><span id="heroKicker">SRI LANKA · TRAVEL &amp; TOURS</span></p>
+<h1 id="heroTitle">Wake up inside the <em>postcard.</em></h1>
+<p class="hero-lead" id="heroLead">Sunrise fortresses, glowing temples and endless coast. We plan the tours, stays and transfers, you just arrive.</p>
+<div class="hero-buttons"><a class="button pdf-explore-btn" href="#destinations"><span data-i18n="pdfExploreDest">Explore destinations</span> <span aria-hidden="true">↗</span></a><button class="button pdf-outline-btn" id="heroGuide" type="button"><span data-i18n="planTrip">Plan my trip</span></button></div>
+<div class="hero-proof"><span class="pdf-proof-item"><span class="pdf-proof-dot">●</span><span data-i18n="pdfBenefit1">Custom itineraries</span></span><span class="pdf-proof-item"><span class="pdf-proof-dot">■</span><span data-i18n="pdfBenefit2">Local guides</span></span><span class="pdf-proof-item"><span class="pdf-proof-dot">●</span><span data-i18n="pdfBenefit3">Airport transfers</span></span></div>
+</div>
+<div class="container hero-controls" id="heroControls"><button aria-label="Previous hero image" data-move="-1" type="button">‹</button><div aria-label="Hero image carousel" class="hero-dots" id="heroDots"></div><button aria-label="Next hero image" data-move="1" type="button">›</button></div><div class="hero-bottom-gradient"></div>
+</section><section aria-label="Find a Sri Lanka tour" class="pdf-search-wrap"><form class="pdf-search container" id="pdfTourSearch"><div class="pdf-search-field"><label data-i18n="pdfDestinationLabel" for="pdfDestination">DESTINATION</label><select id="pdfDestination" name="destination"><option data-i18n="pdfWhere" value="">Where to?</option><option value="Sigiriya">Sigiriya</option><option value="Kandy">Kandy</option><option value="Ella">Ella</option><option value="Mirissa">Mirissa</option><option value="Galle">Galle</option><option value="Yala">Yala</option><option value="Nuwara Eliya">Nuwara Eliya</option><option value="Negombo">Negombo</option></select></div><div class="pdf-search-field"><label data-i18n="pdfTravelDate" for="pdfDate">TRAVEL DATE</label><input aria-label="Travel date" id="pdfDate" name="travelDate" type="date"/></div><div class="pdf-search-field"><label data-i18n="pdfTravellers" for="pdfTravellers">TRAVELLERS</label><select id="pdfTravellers" name="travellers"><option value="1">1 traveller</option><option selected="" value="2">2 travellers</option><option value="3">3 travellers</option><option value="4">4 travellers</option><option value="5">5 travellers</option><option value="6">6 travellers</option><option value="8">8 travellers</option><option value="10">10 travellers</option></select></div><button class="button pdf-search-submit" type="submit"><span aria-hidden="true">⌕</span><span data-i18n="pdfSearchTours">Search tours</span></button></form><p aria-live="polite" class="pdf-search-status" hidden="" id="pdfSearchStatus" role="status"></p></section>
 
-  <main>
-    <section id="home" class="hero">
-      <div class="hero-slides" id="heroSlides" aria-hidden="true"></div>
-      <div class="container hero-content">
-        <p class="eyebrow light"><span class="eyebrow-dot"></span><span id="heroKicker">A JOURNEY BEYOND THE ORDINARY</span></p>
-        <h1 id="heroTitle">Find your <em>wonder</em><br />in Sri Lanka.</h1>
-        <p class="hero-lead" id="heroLead">The island of golden beaches, wild nature, timeless stories and warm smiles. Your unforgettable journey starts here.</p>
-        <div class="hero-buttons">
-          <a href="#tours" class="button button-white"><span data-i18n="exploreTours">Explore journeys</span><span aria-hidden="true">↗</span></a>
-          <button type="button" class="button button-ghost" id="heroGuide"><span class="sparkle">✦</span> <span data-i18n="askGuide">Ask your AI guide</span></button>
-        </div>
-        <div class="hero-proof"><span class="mini-avatars"><span>🌴</span><span>🏝️</span><span>🐘</span></span><span data-i18n="heroProof">Your island. Your pace. Your story.</span></div>
-      </div>
-      <div class="container hero-controls" id="heroControls"><button type="button" data-move="-1" aria-label="Previous hero image">‹</button><div class="hero-dots" id="heroDots" aria-label="Hero image carousel"></div><button type="button" data-move="1" aria-label="Next hero image">›</button></div><div class="hero-bottom-gradient"></div>
-    </section>
+<section class="section container pdf-destinations" id="destinations">
+<div class="section-heading"><div><div class="section-kicker" data-i18n="pdfPopularDestinations">POPULAR DESTINATIONS</div><h2 data-i18n="pdfWhereNext">Where will you go next?</h2></div><button class="pdf-view-all" data-i18n="pdfViewAll" id="pdfViewDestinations" type="button">View all destinations <span aria-hidden="true">↗</span></button></div>
+<div class="destination-grid" id="destinationGrid"></div>
+</section><section class="pdf-services section" id="services"><div class="container"><div class="section-kicker" data-i18n="pdfWhatWeDo">WHAT WE DO</div><h2 class="pdf-services-title" data-i18n-html="pdfServicesTitle">Everything for the trip, in<br/>one place.</h2><div class="pdf-service-grid"><article class="pdf-service"><span aria-hidden="true" class="pdf-service-icon pdf-icon-orange">◉</span><h3 data-i18n="pdfServiceTourTitle">Tour packages</h3><p data-i18n="pdfServiceTourDesc">Ready-made routes for culture, coast, hills and wildlife, built to run smoothly.</p></article><article class="pdf-service"><span aria-hidden="true" class="pdf-service-icon pdf-icon-coral">▤</span><h3 data-i18n="pdfServiceHotelTitle">Hotels and stays</h3><p data-i18n="pdfServiceHotelDesc">From beach villas to hill-country bungalows, booked to match your style and budget.</p></article><article class="pdf-service"><span aria-hidden="true" class="pdf-service-icon pdf-icon-green">⌁</span><h3 data-i18n="pdfServiceAirportTitle">Airport transfers</h3><p data-i18n="pdfServiceAirportDesc">Comfortable pickups and private drivers, so every leg of the journey is covered.</p></article><article class="pdf-service pdf-service-wide"><span aria-hidden="true" class="pdf-service-icon pdf-icon-rose">♧</span><h3 data-i18n="pdfServiceCustomTitle">Custom itineraries</h3><p data-i18n="pdfServiceCustomDesc">Tell us what you love and we will shape a trip around it, day by day.</p></article></div><a class="review-service-cta" href="#reviews">★ Read our traveler reviews <span>↗</span></a></div></section><section class="pdf-why" id="why-us"><div class="container pdf-why-grid"><div class="pdf-why-copy"><div class="section-kicker" data-i18n="pdfWhyHeading">WHY BUSAN LANKA</div><h2 data-i18n-html="pdfWhyTitle">Travel planned by<br/>people who care<br/><em>how it feels.</em></h2></div><div class="pdf-why-list"><article><span>01</span><div><h3 data-i18n="pdfWhy1Title">Local knowledge</h3><p data-i18n="pdfWhy1Desc">We plan around real places, real timing and the little details that make a day easy.</p></div></article><article><span>02</span><div><h3 data-i18n="pdfWhy2Title">Made around you</h3><p data-i18n="pdfWhy2Desc">Every itinerary starts from your pace, interests and group, never a fixed script.</p></div></article><article><span>03</span><div><h3 data-i18n="pdfWhy3Title">Support all the way</h3><p data-i18n="pdfWhy3Desc">One team from first message to your flight home, reachable when plans change.</p></div></article></div></div></section>
+<!-- V3.5 / Scroll Story 01: Wild Sri Lanka -->
 
-    <section class="experience-strip container" aria-label="Trip highlights">
-      <div><span class="strip-icon">☀</span><span><b data-i18n="feature1">Thoughtfully planned</b><small data-i18n="feature1s">Tailor-made experiences</small></span></div>
-      <div><span class="strip-icon">♡</span><span><b data-i18n="feature2">Local connection</b><small data-i18n="feature2s">Meaningful island moments</small></span></div>
-      <div><span class="strip-icon">✦</span><span><b data-i18n="feature3">AI travel companion</b><small data-i18n="feature3s">A guide in your pocket</small></span></div>
-      <div><span class="strip-icon">◎</span><span><b data-i18n="feature4">Travel your way</b><small data-i18n="feature4s">Explore at your own pace</small></span></div>
-    </section>
+<section class="section section-tours" id="tours">
+<div class="container">
+<div class="section-heading"><div><div class="section-kicker" data-i18n="pdfToursKicker">CURATED JOURNEYS</div><h2 data-i18n-html="pdfToursTitle">Explore Sri Lanka,<br/><em>your way.</em></h2></div><p class="section-intro" data-i18n="toursIntro">Browse sample itineraries, discover the places you'll see, and contact our team to create your ideal trip. No public prices.</p></div>
+<div aria-label="Filter tours" class="filters" id="tourFilters" role="group"></div>
+<div class="tour-grid" id="tourGrid"></div>
+<p class="content-note"><span aria-hidden="true">ⓘ</span> <span data-i18n="sampleNote">Sample itineraries and concept imagery for this first preview. Replace these with Busan Lanka's approved packages and real travel photos before launch.</span></p>
+</div>
+</section>
+<!-- V3.5 / Scroll Story 02: The Highlands -->
 
-    <section class="section container" id="destinations">
-      <div class="section-heading"><div><div class="section-kicker" data-i18n="discoverIsland">DISCOVER THE ISLAND</div><h2 data-i18n-html="destTitle">A little island.<br /><em>Endless experiences.</em></h2></div><p class="section-intro" data-i18n="destIntro">From misty mountains to ocean sunsets, there is always another story waiting around the corner.</p></div>
-      <div class="destination-grid" id="destinationGrid"></div>
-    </section>
+<section class="ai-section section container" id="ai">
+<div class="ai-left"><div class="section-kicker"><span class="sparkle">✦</span> <span data-i18n="aiKicker">MEET YOUR TRAVEL COMPANION</span></div><h2 data-i18n-html="aiTitle">A whole island<br/>of answers. <em>One guide.</em></h2><p data-i18n="aiText">Curious about Sigiriya? Wondering what to eat in Ella? Ask your personal travel companion, explore stories and feel more connected to Sri Lanka.</p><div class="ai-features"><span>✦ <span data-i18n="aiFeat1">Local stories</span></span><span>✦ <span data-i18n="aiFeat2">Travel tips</span></span><span>✦ <span data-i18n="aiFeat3">Multilingual</span></span></div><button class="button button-gradient" id="sectionGuide" type="button"><span data-i18n="openGuide">Meet my guide</span> <span>↗</span></button></div>
+<div aria-hidden="true" class="ai-preview"><div class="ai-preview-header"><span class="ai-orb">✦</span><span><b>Busan AI Guide</b><small data-i18n="aiPreviewSub">Explore • Discover • Enjoy</small></span><span class="online-dot"></span></div><div class="ai-bubble bot" data-i18n="aiPreviewWelcome">Ayubowan! 👋 Welcome to Sri Lanka. What would you love to discover today?</div><div class="ai-bubble guest" data-i18n="aiPreviewQuestion">Tell me something magical about Sigiriya ✨</div><div class="ai-bubble bot" data-i18n="aiPreviewAnswer">High above the jungle rises a 5th-century rock fortress — a place of royal gardens, art and incredible views...</div><div class="ai-typing"><span></span><span></span><span></span></div></div>
+</section>
+<!-- V3.5 / Scroll Story 03: Nine Arch Bridge -->
 
-    <section class="section section-tours" id="tours">
-      <div class="container">
-        <div class="section-heading"><div><div class="section-kicker" data-i18n="journeys">YOUR NEXT ADVENTURE</div><h2 data-i18n-html="toursTitle">Journeys worth<br /><em>remembering.</em></h2></div><p class="section-intro" data-i18n="toursIntro">Browse sample itineraries, discover the places you'll see, and contact our team to create your ideal trip. No public prices.</p></div>
-        <div class="filters" id="tourFilters" role="group" aria-label="Filter tours"></div>
-        <div class="tour-grid" id="tourGrid"></div>
-        <p class="content-note"><span aria-hidden="true">ⓘ</span> <span data-i18n="sampleNote">Sample itineraries and concept imagery for this first preview. Replace these with Busan Lanka's approved packages and real travel photos before launch.</span></p>
-      </div>
-    </section>
+<section class="journey-section" id="journey"><div class="container journey-inner"><div class="journey-cover"><div class="journey-phone"><div class="phone-dot"></div><div class="phone-sun">☀</div><span data-i18n="journeyPhoneKicker">YOUR JOURNEY STARTS HERE</span><h3 data-i18n-html="journeyPhoneTitle">Hello,<br/>Sri Lanka.</h3><small data-i18n="journeyPhoneSub">✦ Your personal guide awaits</small><div class="journey-phone-btn" data-i18n="journeyPhoneButton">Start my tour ↗</div></div></div><div class="journey-copy"><div class="section-kicker" data-i18n="qrKicker">SCAN. START. EXPERIENCE.</div><h2 data-i18n-html="qrTitle">Your journey, <em>beautifully guided.</em></h2><p data-i18n="qrText">Scan the QR code in your tour vehicle. Choose your language, listen to a warm welcome or skip it, and discover local stories as you travel.</p><div class="journey-steps"><div><span>01</span><b data-i18n="step1">Scan the tour QR</b></div><div><span>02</span><b data-i18n="step2">Choose your language</b></div><div><span>03</span><b data-i18n="step3">Enjoy your guided journey</b></div></div><button class="button button-dark" id="tryTour"><span data-i18n="demoTour">Try the tour experience</span><span>↗</span></button><p class="tiny-note" data-i18n="gpsNote">Live GPS guidance works while the app is open and location access is allowed. Wildlife alerts require verified zone information.</p></div></div></section>
+<!-- V3.5 / Scroll Story 04: Beneath the Blue -->
 
-    <section class="ai-section section container" id="ai">
-      <div class="ai-left"><div class="section-kicker"><span class="sparkle">✦</span> <span data-i18n="aiKicker">MEET YOUR TRAVEL COMPANION</span></div><h2 data-i18n-html="aiTitle">A whole island<br />of answers. <em>One guide.</em></h2><p data-i18n="aiText">Curious about Sigiriya? Wondering what to eat in Ella? Ask your personal travel companion, explore stories and feel more connected to Sri Lanka.</p><div class="ai-features"><span>✦ <span data-i18n="aiFeat1">Local stories</span></span><span>✦ <span data-i18n="aiFeat2">Travel tips</span></span><span>✦ <span data-i18n="aiFeat3">Multilingual</span></span></div><button type="button" class="button button-gradient" id="sectionGuide"><span data-i18n="openGuide">Meet my guide</span> <span>↗</span></button></div>
-      <div class="ai-preview" aria-hidden="true"><div class="ai-preview-header"><span class="ai-orb">✦</span><span><b>Busan AI Guide</b><small>Explore • Discover • Enjoy</small></span><span class="online-dot"></span></div><div class="ai-bubble bot">Ayubowan! 👋 Welcome to Sri Lanka. What would you love to discover today?</div><div class="ai-bubble guest">Tell me something magical about Sigiriya ✨</div><div class="ai-bubble bot">High above the jungle rises a 5th-century rock fortress — a place of royal gardens, art and incredible views...</div><div class="ai-typing"><span></span><span></span><span></span></div></div>
-    </section>
+<section class="section gallery-section" id="stories"><div class="container"><div class="section-heading"><div><div class="section-kicker" data-i18n="memories">MOMENTS THAT MATTER</div><h2 data-i18n-html="storiesTitle">Real journeys.<br/><em>Real memories.</em></h2></div><p class="section-intro" data-i18n="storiesIntro">Explore curated travel imagery and real traveler stories.</p></div><div class="gallery-grid" id="galleryGrid"></div></div></section>
 
-    <section class="journey-section" id="journey"><div class="container journey-inner"><div class="journey-cover"><div class="journey-phone"><div class="phone-dot"></div><div class="phone-sun">☀</div><span>YOUR JOURNEY STARTS HERE</span><h3>Hello,<br />Sri Lanka.</h3><small>✦ Your personal guide awaits</small><div class="journey-phone-btn">Start my tour ↗</div></div></div><div class="journey-copy"><div class="section-kicker" data-i18n="qrKicker">SCAN. START. EXPERIENCE.</div><h2 data-i18n-html="qrTitle">Your journey, <em>beautifully guided.</em></h2><p data-i18n="qrText">Scan the QR code in your tour vehicle. Choose your language, listen to a warm welcome or skip it, and discover local stories as you travel.</p><div class="journey-steps"><div><span>01</span><b data-i18n="step1">Scan the tour QR</b></div><div><span>02</span><b data-i18n="step2">Choose your language</b></div><div><span>03</span><b data-i18n="step3">Enjoy your guided journey</b></div></div><button class="button button-dark" id="tryTour"><span data-i18n="demoTour">Try the tour experience</span><span>↗</span></button><p class="tiny-note" data-i18n="gpsNote">Live GPS guidance works while the app is open and location access is allowed. Wildlife alerts require verified zone information.</p></div></div></section>
+<section class="section guest-reviews-section" id="reviews" aria-labelledby="guestReviewsTitle"><div class="container">
+ <div class="guest-reviews-head"><div><p class="section-kicker" id="reviewKicker">REAL GUEST EXPERIENCES</p><h2 id="guestReviewsTitle">Stories worth <em>sharing.</em></h2><p id="reviewIntro">Read genuine traveler reviews, or share your experience with photos.</p></div>
+ <button class="button button-gradient" id="writeReviewButton" type="button">★ Write a review</button></div>
+ <div class="review-carousel-top"><span id="reviewTotal" class="review-total" aria-live="polite">0 traveler reviews</span><div class="review-carousel-controls"><button type="button" id="reviewPrev" aria-label="Previous reviews">‹</button><button type="button" id="reviewNext" aria-label="Next reviews">›</button></div></div>
+ <div class="reviews-grid guest-reviews-grid" id="reviewsGrid" aria-label="Traveler reviews carousel" tabindex="0"><p>Loading reviews...</p></div>
+ <p class="review-moderation-note" id="reviewsDisclaimer">Guest reviews appear here only after review by our team.</p>
+</div></section>
+<section class="last-cta" id="contact"><div class="container cta-inner"><div><h2 data-i18n-html="pdfCtaTitle">Your next sunrise is waiting.</h2><p data-i18n="pdfCtaDesc">Share where and when. We will reply with a plan that fits.</p></div><button class="button button-white" data-i18n="pdfStartPlanning" id="footerContact">Start planning</button></div></section>
+</main>
+<footer class="footer" id="about"><div class="container pdf-footer-grid"><div class="pdf-footer-brand"><a class="brand footer-brand" href="#home"><img alt="Busan Lanka icon" src="./assets/logo-mark.jpg"/><span class="brand-type"><b>BUSAN LANKA</b><small>TRAVEL &amp; TOURS</small></span></a><p data-i18n="pdfFooterTag">Tours, stays and transfers, planned with care.</p></div><div class="pdf-footer-explore"><h3 data-i18n="pdfFooterExplore">EXPLORE</h3><div class="footer-links"><a data-i18n="destinations" href="#destinations">Destinations</a><a data-i18n="pdfServicesNav" href="#services">Services</a><a href="#reviews">Reviews</a><a data-i18n="pdfWhyNav" href="#why-us">Why us</a><a data-i18n="tours" href="#tours">Our Tours</a><button data-i18n="aiGuide" id="footerAi">AI Guide</button></div></div><div class="pdf-footer-contact"><h3 data-i18n="pdfContactNav">CONTACT</h3><div class="pdf-contact-lines" id="pdfFooterContacts"></div><button class="pdf-footer-plan" data-i18n="pdfStartPlanning" id="footerContactExtra" type="button">Start planning</button><div class="footer-social-links" id="footerSocialLinks"></div></div></div><div class="container pdf-footer-legal">© <span id="year"></span> Busan Lanka Travel &amp; Tours. <span data-i18n="rights">All rights reserved.</span></div></footer>
+<nav aria-label="Mobile app navigation" class="bottom-nav">
+<a aria-current="page" class="is-active" data-mobile="home" href="#home">
+<span aria-hidden="true" class="mobile-nav-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"></path></svg></span>
+<small data-i18n="home">Home</small>
+</a>
+<a data-mobile="tours" href="#tours">
+<span aria-hidden="true" class="mobile-nav-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="15" rx="2" width="18" x="3" y="6"></rect><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2"></path></svg></span>
+<small data-i18n="tours">Tours</small>
+</a>
+<button aria-label="Open AI Guide" class="bottom-ai" data-mobile="guide" id="bottomGuide" type="button">
+<span aria-hidden="true" class="mobile-nav-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="13" rx="4" width="16" x="4" y="7"></rect><path d="M12 3v4M9 3h6M8 13h.01M16 13h.01M9 17c1.8 1 4.2 1 6 0"></path><circle cx="8" cy="13" fill="currentColor" r=".6"></circle><circle cx="16" cy="13" fill="currentColor" r=".6"></circle></svg></span>
+<small data-i18n="aiGuide">AI Guide</small>
+</button>
+<button aria-label="Open My Tour" data-mobile="trip" id="bottomTrip" type="button">
+<span aria-hidden="true" class="mobile-nav-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M3 6 9 3l6 3 6-3v15l-6 3-6-3-6 3zM9 3v15M15 6v15"></path><path d="m11 10 1.5 1.5L15 9"></path></svg></span>
+<small data-i18n="myTour">My Tour</small>
+</button>
+</nav>
+<button aria-label="Open Busan AI guide" class="floating-ai" id="floatingAi"><span>✦</span><b data-i18n="askMe">Ask Busan AI</b></button>
+<div class="overlay" hidden="" id="genericOverlay"></div>
+<section aria-label="Tour itinerary" aria-modal="true" class="modal" hidden="" id="packageModal" role="dialog"><div class="modal-handle"></div><button aria-label="Close" class="close-btn" data-close="packageModal">✕</button><div id="packageModalContent"></div></section>
+<section aria-label="Plan your trip enquiry" aria-modal="true" class="modal contact-modal" hidden="" id="contactModal" role="dialog"><div class="modal-handle"></div><button aria-label="Close" class="close-btn" data-close="contactModal">✕</button><div class="contact-modal-inner"><div class="section-kicker" data-i18n="contactKicker">START PLANNING</div><h2 data-i18n="contactHeading">Let's plan your Sri Lanka story.</h2><p data-i18n="contactDescription">Tell us a few details and send your enquiry directly to the Busan Lanka team.</p><form id="enquiryForm"><label><span data-i18n="formName">Your name</span><input maxlength="80" name="name" placeholder="Your name" required=""/></label><label><span data-i18n="formEmail">Email address</span><input maxlength="180" name="email" placeholder="you@example.com" required="" type="email"/></label><label><span data-i18n="enquiryPhoneLabel">WhatsApp / phone (optional)</span><input autocomplete="tel" maxlength="30" name="phone" placeholder="+44 ..." type="tel"/></label><div class="form-duo"><label><span data-i18n="formDays">Travel days</span><input max="60" min="1" name="days" placeholder="7" type="number"/></label><label><span data-i18n="formMonth">Travel month</span><input name="month" type="month"/></label></div><label><span data-i18n="formMessage">What would you love to explore?</span><textarea name="message" data-i18n-placeholder="enquiryMessagePlaceholder" placeholder="Tell us about your dream trip..." rows="4"></textarea></label><input id="enquiryTour" name="tour" type="hidden"/><fieldset class="enquiry-channel-fieldset"><legend data-i18n="contactChannelPrompt">Choose how to contact Busan Lanka</legend><div class="enquiry-channel-options" id="enquiryChannelOptions"></div></fieldset><p id="enquirySaveStatus" class="enquiry-save-status" role="status" aria-live="polite"></p><p class="tiny-note" data-i18n="enquiryPrivacyNotice">Your enquiry details may be stored securely for trip follow-up when our booking system is connected. Please do not include sensitive identity or payment information.</p><p class="tiny-note" id="whatsappExplanation">Your enquiry is recorded before we open your selected app. You must send the message in that app; Instagram, Messenger and Telegram may require pasting the copied text.</p><p class="tiny-note" id="contactSetupNote"></p></form></div></section>
+<section aria-label="Busan AI travel guide" aria-modal="true" class="guide-panel" hidden="" id="guidePanel" role="dialog"><header class="guide-header"><div class="guide-avatar">✦</div><div><b>Busan AI Guide</b><small id="guideStatus">Travel companion • Preview</small></div><button aria-label="Close AI guide" class="guide-close" data-close="guidePanel" type="button">✕</button></header><div aria-live="polite" class="guide-messages" id="guideMessages"></div><div class="guide-quick" id="guideQuick"></div><form class="guide-form" id="guideForm"><input aria-label="Ask a travel question" id="guideInput" maxlength="650" data-i18n-placeholder="aiInputPlaceholder" placeholder="Ask about Sri Lanka..." required=""/><button aria-label="Send message" type="submit">➤</button></form><p class="guide-disclaimer" data-i18n="guideDisclaimer">Preview mode uses sample knowledge. Live AI requires a configured server-side API.</p></section>
+<section aria-label="My tour experience" aria-modal="true" class="tour-overlay" hidden="" id="tourOverlay" role="dialog">
+<header class="tour-topbar"><button aria-label="Back" class="tour-back" id="tourBack">←</button><div class="tour-top-brand"><span>✦</span><b>BUSAN LANKA</b><small data-i18n="myTour">My Tour</small></div><button class="tour-exit" data-i18n="exit" id="tourExit">Exit</button></header>
+<div class="tour-stage" id="tourStage"></div>
+</section>
+<dialog class="photo-lightbox" id="photoLightbox"><button aria-label="Close image" id="photoClose" type="button">✕</button><img alt="" id="fullPhoto"/><p id="photoCaption"></p></dialog>
 
-    <section class="section gallery-section" id="stories"><div class="container"><div class="section-heading"><div><div class="section-kicker" data-i18n="memories">MOMENTS THAT MATTER</div><h2 data-i18n-html="storiesTitle">Real journeys.<br /><em>Real memories.</em></h2></div><p class="section-intro" data-i18n="storiesIntro">Explore curated travel imagery and real traveler stories.</p></div><div class="gallery-grid" id="galleryGrid"></div><h3 class="review-title" data-i18n="realReviews">What our travelers say</h3><div class="reviews-grid" id="reviewsGrid"></div></div></section>
+<dialog id="guestReviewDialog" class="guest-review-dialog" aria-labelledby="newReviewTitle">
+<form id="guestReviewForm" class="guest-review-form">
+<header><div><p class="section-kicker" id="newReviewKicker">YOUR SRI LANKA EXPERIENCE</p><h2 id="newReviewTitle">Share your story.</h2></div><button id="closeGuestReview" type="button" class="review-close" aria-label="Close">✕</button></header>
+<p id="reviewFormIntro">How was your journey? Submit a genuine experience to be reviewed before publication.</p>
+<div class="review-form-row"><label><span id="reviewNameLabel">Your name</span><input name="name" autocomplete="name" required minlength="2" maxlength="90" placeholder="Your name"/></label>
+<label><span id="reviewCountryLabel">Country</span><select name="country_code" id="reviewCountry" required><option value="">Select country</option></select></label></div>
+<div class="review-form-row"><label><span id="reviewMonthLabel">Date visited (month/year)</span><input name="visited_month" type="month" id="reviewMonth" required/></label>
+<label><span id="reviewTripTypeLabel">Trip type</span><select name="trip_type" required id="reviewTripType"><option value="">Select trip type</option><option value="Couples">Couples</option><option value="Family">Family</option><option value="Friends">Friends</option><option value="Solo">Solo</option><option value="Business">Business</option><option value="Other">Other</option></select></label></div>
+<fieldset class="review-rating"><legend id="reviewRatingLabel">Your rating</legend><div id="reviewStarButtons" class="review-star-buttons" role="group" aria-label="Rating out of 5"><button type="button" data-rating="1" aria-pressed="false">★</button><button type="button" data-rating="2" aria-pressed="false">★</button><button type="button" data-rating="3" aria-pressed="false">★</button><button type="button" data-rating="4" aria-pressed="false">★</button><button type="button" data-rating="5" aria-pressed="true">★</button><span id="reviewRatingText">5 / 5</span></div><input type="hidden" name="rating" value="5"/></fieldset>
+<label><span id="reviewTitleLabel">Review title</span><input name="title" maxlength="120" minlength="2" required placeholder="A wonderful Sri Lankan experience"/></label>
+<label><span id="reviewTextLabel">Your review</span><textarea name="review_text" minlength="15" maxlength="2500" rows="5" required placeholder="Tell us about your journey..."></textarea></label>
+<label class="review-uploads"><span id="reviewPhotosLabel">Add up to 2 photos (optional)</span><input id="guestReviewPhotos" type="file" accept="image/jpeg,image/png,image/webp" multiple/><small id="reviewPhotoHint">JPEG, PNG or WebP. Up to 6 MB each; resized before upload.</small></label>
+<div id="reviewPhotoPreviews" class="review-photo-previews"></div>
+<label class="review-consent"><input type="checkbox" name="consent" required/><span id="reviewConsentText">I own this review and photos and agree they may be published after approval.</span></label>
+<label class="review-hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"/></label>
+<p id="reviewFormStatus" class="review-form-status" role="status"></p>
+<button type="submit" class="button button-gradient button-full" id="guestReviewSubmit">Submit review for approval</button>
+<p class="review-privacy-note" id="reviewFormPrivacy">Your review is kept private while pending. Submitted photos are not published until approval.</p>
+</form></dialog>
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
+<script src="./app.js" type="module"></script>
 
-    <section class="last-cta"><div class="container cta-inner"><div><div class="section-kicker" data-i18n="ctaKicker">LET'S MAKE MEMORIES</div><h2 data-i18n-html="ctaTitle">Sri Lanka is calling.<br /><em>Shall we go?</em></h2><p data-i18n="ctaText">Tell us when you'd like to travel and what inspires you. We'll help plan a journey made for you.</p></div><button class="button button-white" id="footerContact"><span data-i18n="planTrip">Plan my trip</span><span>↗</span></button></div></section>
-  </main>
-
-  <footer class="footer" id="about"><div class="container footer-inner"><a class="brand footer-brand" href="#home"><img src="./assets/logo-mark.jpg" alt=""/><span class="brand-type"><b>BUSAN LANKA</b><small>TRAVEL & TOURS</small></span></a><p data-i18n="footerText">Meaningful journeys. Unforgettable Sri Lanka.</p><div class="footer-links"><a href="#destinations" data-i18n="destinations">Destinations</a><a href="#tours" data-i18n="tours">Our Tours</a><button id="footerAi" data-i18n="aiGuide">AI Guide</button></div><div id="footerSocialLinks" class="footer-social-links" aria-label="Social media links"></div><small>© <span id="year"></span> Busan Lanka Travel & Tours. <span data-i18n="rights">All rights reserved.</span></small></div></footer>
-
-  <nav class="bottom-nav" aria-label="Mobile app navigation">
-    <a href="#home" class="is-active" data-mobile="home" aria-current="page">
-      <span class="mobile-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></span>
-      <small data-i18n="home">Home</small>
-    </a>
-    <a href="#tours" data-mobile="tours">
-      <span class="mobile-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="15" rx="2"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2"/></svg></span>
-      <small data-i18n="tours">Tours</small>
-    </a>
-    <button type="button" id="bottomGuide" class="bottom-ai" data-mobile="guide" aria-label="Open AI Guide">
-      <span class="mobile-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="13" rx="4"/><path d="M12 3v4M9 3h6M8 13h.01M16 13h.01M9 17c1.8 1 4.2 1 6 0"/><circle cx="8" cy="13" r=".6" fill="currentColor"/><circle cx="16" cy="13" r=".6" fill="currentColor"/></svg></span>
-      <small data-i18n="aiGuide">AI Guide</small>
-    </button>
-    <button type="button" id="bottomTrip" data-mobile="trip" aria-label="Open My Tour">
-      <span class="mobile-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6 9 3l6 3 6-3v15l-6 3-6-3-6 3zM9 3v15M15 6v15"/><path d="m11 10 1.5 1.5L15 9"/></svg></span>
-      <small data-i18n="myTour">My Tour</small>
-    </button>
-  </nav>
-  <button class="floating-ai" id="floatingAi" aria-label="Open Busan AI guide"><span>✦</span><b data-i18n="askMe">Ask Busan AI</b></button>
-
-  <div class="overlay" id="genericOverlay" hidden></div>
-  <section class="modal" id="packageModal" role="dialog" aria-modal="true" aria-label="Tour itinerary" hidden><div class="modal-handle"></div><button class="close-btn" data-close="packageModal" aria-label="Close">✕</button><div id="packageModalContent"></div></section>
-  <section class="modal contact-modal" id="contactModal" role="dialog" aria-modal="true" aria-label="Plan your trip enquiry" hidden><div class="modal-handle"></div><button class="close-btn" data-close="contactModal" aria-label="Close">✕</button><div class="contact-modal-inner"><div class="section-kicker" data-i18n="contactKicker">START PLANNING</div><h2 data-i18n="contactHeading">Let's plan your Sri Lanka story.</h2><p data-i18n="contactDescription">Tell us a few details and send your enquiry directly to the Busan Lanka team.</p><form id="enquiryForm"><label><span data-i18n="formName">Your name</span><input name="name" required maxlength="80" placeholder="Your name"/></label><label><span data-i18n="formEmail">Email address</span><input name="email" type="email" required maxlength="180" placeholder="you@example.com"/></label><label><span>WhatsApp / phone (optional)</span><input name="phone" type="tel" maxlength="30" autocomplete="tel" placeholder="+44 ..."/></label><div class="form-duo"><label><span data-i18n="formDays">Travel days</span><input name="days" type="number" min="1" max="60" placeholder="7"/></label><label><span data-i18n="formMonth">Travel month</span><input name="month" type="month"/></label></div><label><span data-i18n="formMessage">What would you love to explore?</span><textarea name="message" rows="4" placeholder="Tell us about your dream trip..."></textarea></label><input type="hidden" name="tour" id="enquiryTour"/><button type="submit" class="button button-gradient button-full" id="submitEnquiryButton" data-i18n="sendEnquiry">Prepare my enquiry ↗</button><p class="tiny-note">Your enquiry details may be stored securely for trip follow-up when our booking system is connected. Please do not include sensitive identity or payment information.</p><p class="tiny-note" id="whatsappExplanation">When a WhatsApp number is configured, this opens a pre-filled chat. Press Send in WhatsApp to deliver your enquiry.</p><p class="tiny-note" id="contactSetupNote"></p></form></div></section>
-
-  <section class="guide-panel" id="guidePanel" role="dialog" aria-modal="true" aria-label="Busan AI travel guide" hidden><header class="guide-header"><div class="guide-avatar">✦</div><div><b>Busan AI Guide</b><small id="guideStatus">Travel companion • Preview</small></div><button type="button" class="guide-close" data-close="guidePanel" aria-label="Close AI guide">✕</button></header><div class="guide-messages" id="guideMessages" aria-live="polite"></div><div class="guide-quick" id="guideQuick"></div><form class="guide-form" id="guideForm"><input id="guideInput" maxlength="650" aria-label="Ask a travel question" placeholder="Ask about Sri Lanka..." required/><button type="submit" aria-label="Send message">➤</button></form><p class="guide-disclaimer" data-i18n="guideDisclaimer">Preview mode uses sample knowledge. Live AI requires a configured server-side API.</p></section>
-
-  <section class="tour-overlay" id="tourOverlay" role="dialog" aria-modal="true" aria-label="My tour experience" hidden>
-    <header class="tour-topbar"><button class="tour-back" id="tourBack" aria-label="Back">←</button><div class="tour-top-brand"><span>✦</span><b>BUSAN LANKA</b><small data-i18n="myTour">My Tour</small></div><button class="tour-exit" id="tourExit" data-i18n="exit">Exit</button></header>
-    <div class="tour-stage" id="tourStage"></div>
-  </section>
-  <dialog id="photoLightbox" class="photo-lightbox"><button type="button" id="photoClose" aria-label="Close image">✕</button><img id="fullPhoto" alt=""/><p id="photoCaption"></p></dialog>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="./app.js"></script>
-</body>
+<script src="./pdf-home-v4.js" type="module"></script><script src="./guest-reviews.js?v=45" type="module"></script></body>
 </html>

@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {readFileSync,existsSync} from 'node:fs';
+const read=n=>readFileSync(n,'utf8');
+const css=read('watercolor-ui-v4-6.css');
+const html=read('index.html');
+const sw=read('sw.js');
+const build=read('tools/build-netlify.mjs');
+assert(existsSync('assets/busan-original-watercolor-waves-v46.webp'));
+assert(css.includes('busan-original-watercolor-waves-v46.webp'));
+for(const s of ['.pdf-destinations::before','.pdf-services','.section-tours','.ai-section::before','.journey-section','.gallery-section','.guest-reviews-section','.last-cta'])assert(css.includes(s),s);
+assert(html.includes('watercolor-ui-v4-6.css?v=46'));
+assert(sw.includes('watercolor-ui-v4-6.css'));
+assert(sw.includes('busan-original-watercolor-waves-v46.webp'));
+assert(build.includes('watercolor-ui-v4-6.css'));
+assert(existsSync('dist/assets/busan-original-watercolor-waves-v46.webp'));
+assert(existsSync('dist/watercolor-ui-v4-6.css'));
+assert(read('admin.js').includes('function render()'));
+console.log('PASS V4.6 uploaded watercolor artwork, all target sections, service-worker cache, Netlify build assets, admin retained');

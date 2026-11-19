@@ -1,6 +1,7 @@
 import {CONFIG,LANGS,TRANS,ZONES,STORIES,KNOWLEDGE} from './data.js';
 import {DEFAULT_CONTENT,publicContent,supabaseEnabled} from './content-store.js';
 import {askLiveGuide,storeTourEnquiry} from './ai-service.js';
+import {enabledChannels,contactUrl,saveLocalEnquiry,CHANNEL_NAMES} from './enquiry-channels.js';
 
 
 const $=(s,root=document)=>root.querySelector(s);
@@ -12,7 +13,7 @@ const picture=src=>!src?'':/^(https?:|data:image\/)/i.test(src)?src:'./'+String(
 const loc=(obj,key)=>obj?.translations?.[state.lang]?.[key]||obj?.[key]||'';
 const safeRich=s=>esc(s).replaceAll('&lt;em&gt;','<em>').replaceAll('&lt;/em&gt;','</em>').replace(/&lt;br\s*\/?&gt;/gi,'<br>');
 const state={lang:'en',filter:'all',tourStep:'welcome',watchId:null,locationGranted:false,notificationsGranted:false,sound:false,active:false,seen:new Set(),coords:null,story:null,chat:[],voice:null,toastTimer:null};
-const t=(key)=>content.translations?.[state.lang]?.[key]||content.translations?.en?.[key]||TRANS[state.lang]?.[key]||TRANS.en[key]||key;
+const t=(key)=>content.translations?.[state.lang]?.[key]||content.translations?.en?.[key]||DEFAULT_CONTENT.translations?.[state.lang]?.[key]||DEFAULT_CONTENT.translations?.en?.[key]||TRANS[state.lang]?.[key]||TRANS.en[key]||key;
 const langVoice=()=>LANGS[state.lang]?.voice||'en-GB';
 const msg=(s)=>{const toast=$('#toast');toast.textContent=s;toast.classList.add('show');clearTimeout(state.toastTimer);state.toastTimer=setTimeout(()=>toast.classList.remove('show'),3500);};
 
@@ -27,12 +28,17 @@ function setLanguage(code){
  $('#langSelect').value=code;
  $$('[data-i18n]').forEach(el=>{let key=el.dataset.i18n;el.textContent=t(key);});
  $$('[data-i18n-html]').forEach(el=>{el.innerHTML=safeRich(t(el.dataset.i18nHtml));});
- renderDestinations();renderFilters();renderTours();renderStories();renderHero();renderGuideQuick();updateEnquiryButton();
+ $$('[data-i18n-placeholder]').forEach(el=>{el.placeholder=t(el.dataset.i18nPlaceholder);});
+ renderDestinations();renderFilters();renderTours();renderStories();renderHero();renderGuideQuick();renderEnquiryChannels();
+ document.dispatchEvent(new CustomEvent('busan:language-change',{detail:{lang:state.lang,content}}));
  if(!$('#tourOverlay').hidden){stopSpeech();renderTourStage();}
 }
 function renderDestinations(){
- $('#destinationGrid').innerHTML=content.destinations.map(d=>`<a class="destination-card" href="#tours" aria-label="${esc(loc(d,'name'))}"><img src="${esc(picture(d.image))}" alt="${esc(loc(d,'name'))} landscape" loading="lazy"/><div class="destination-content"><small>↗ ${esc(loc(d,'tag'))}</small><h3>${esc(loc(d,'name'))}</h3></div></a>`).join('');
+ const rank={sigiriya:0,kandy:1,mirissa:2,ella:3,polonnaruwa:4,wildlife:5};
+ const destinations=[...(content.destinations||[])].sort((a,b)=>(rank[a.id]??100)-(rank[b.id]??100));
+ $('#destinationGrid').innerHTML=destinations.map(d=>`<a class="destination-card" href="#tours" aria-label="${esc(loc(d,'name'))}"><img src="${esc(picture(d.image))}" alt="${esc(loc(d,'name'))} landscape" loading="lazy"/><small class="pdf-dest-badge">${esc(loc(d,'tag'))}</small><div class="destination-content"><h3>${esc(loc(d,'name'))}</h3><span class="pdf-card-desc">${esc(loc(d,'description'))}</span></div></a>`).join('');
 }
+
 function renderSocialLinks(){
  const target=$('#footerSocialLinks');if(!target)return;
  const links=[['facebook','Facebook','f'],['instagram','Instagram','◎'],['youtube','YouTube','▶'],['tiktok','TikTok','♪'],['tripadvisor','Tripadvisor','★'],['googleReviews','Google Reviews','★']];
@@ -54,19 +60,42 @@ function renderStories(){
  $$('.brand-type small').forEach(el=>el.textContent=content.settings.subbrand);
  document.documentElement.style.setProperty('--welcome-bg',`url(${JSON.stringify(picture(content.settings.tourWelcomeImage))})`);
  document.documentElement.style.setProperty('--journey-bg',`url(${JSON.stringify(picture(content.settings.journeyImage))})`);
+ document.documentElement.style.setProperty('--pdf-why-bg',`url(${JSON.stringify(picture(content.settings.whyBackgroundImage||'assets/kandy-temple.webp'))})`);
+ document.documentElement.style.setProperty('--pdf-cta-bg',`url(${JSON.stringify(picture(content.settings.ctaBackgroundImage||'assets/sigiriya-heritage.webp'))})`);
 }
 function renderHero(){
- const slides=content.slides||[];
- if(!slides.length)return;
- currentSlide=Math.min(currentSlide,slides.length-1);
- $('#heroSlides').innerHTML=slides.map((v,i)=>`<div class="hero-slide ${i===currentSlide?'current':''}" style="background-image:linear-gradient(90deg,rgba(12,13,12,.86) 0%,rgba(12,13,12,.58) 40%,rgba(12,13,12,.07) 100%),url('${esc(picture(v.image))}')" role="img" aria-label="${esc(loc(v,'kicker'))}"></div>`).join('');
+ const slides=Array.isArray(content.slides)?content.slides:[];
+ const layer=$('#heroSlides'), controls=$('#heroControls');
+ if(!slides.length){layer.replaceChildren();controls.hidden=true;$('#heroKicker').textContent='';$('#heroTitle').textContent='Welcome to Sri Lanka';$('#heroLead').textContent='';return;}
+ currentSlide=((currentSlide%slides.length)+slides.length)%slides.length;
+ controls.hidden=slides.length<2;
+ // Keep nodes mounted across slide changes: CSS opacity transitions now crossfade.
+ if(layer.children.length!==slides.length || layer.dataset.slideIds!==slides.map((s,i)=>s.id||i).join('|')){
+  layer.replaceChildren();
+  for(const v of slides){
+   const el=document.createElement('div');el.className='hero-slide';
+   el.style.backgroundImage=`linear-gradient(90deg,rgba(17,22,23,.42) 0%,rgba(17,22,23,.14) 45%,rgba(17,22,23,.04) 100%), url(${JSON.stringify(picture(v.image))})`;
+   el.setAttribute('role','img');el.setAttribute('aria-label',String(v.kicker||'Sri Lankan destination'));
+   layer.append(el);
+  }
+  layer.dataset.slideIds=slides.map((s,i)=>s.id||i).join('|');
+ }
+ [...layer.children].forEach((el,i)=>{
+  el.classList.toggle('current',i===currentSlide);
+  el.setAttribute('aria-hidden',i===currentSlide?'false':'true');
+ });
  $('#heroKicker').textContent=loc(slides[currentSlide],'kicker');
  $('#heroTitle').innerHTML=safeRich(loc(slides[currentSlide],'title'));
  $('#heroLead').textContent=loc(slides[currentSlide],'lead');
- $('#heroDots').innerHTML=slides.map((v,i)=>`<button class="hero-dot ${i===currentSlide?'is-active':''}" data-slide="${i}" aria-label="Show slide ${i+1}" aria-current="${i===currentSlide?'true':'false'}"></button>`).join('');
+ $('#heroDots').innerHTML=slides.map((v,i)=>`<button type="button" class="hero-dot ${i===currentSlide?'is-active':''}" data-slide="${i}" aria-label="Show slide ${i+1} of ${slides.length}" aria-current="${i===currentSlide?'true':'false'}"></button>`).join('');
 }
-function changeSlide(n){const slides=content.slides||[];if(!slides.length)return;currentSlide=(n+slides.length)%slides.length;renderHero();}
-function startSlider(){clearInterval(slideTimer);if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches&&content.slides.length>1)slideTimer=setInterval(()=>{if(!document.hidden&&$('#tourOverlay').hidden)changeSlide(currentSlide+1);},6000);}
+function changeSlide(n){const slides=content.slides||[];if(!slides.length)return;currentSlide=((n%slides.length)+slides.length)%slides.length;renderHero();}
+function startSlider(){
+ clearInterval(slideTimer);slideTimer=null;
+ if(!content.settings?.heroAutoplay || (content.slides||[]).length<2 || document.hidden || window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ const interval=Math.min(20,Math.max(3,Number(content.settings?.heroIntervalSeconds)||6))*1000;
+ slideTimer=setInterval(()=>changeSlide(currentSlide+1),interval);
+}
 function renderFilters(){
  const types=['all','culture','nature','coast'];
  $('#tourFilters').innerHTML=types.map(type=>`<button type="button" class="filter ${state.filter===type?'active':''}" data-filter="${type}">${esc(t(type))}</button>`).join('');
@@ -105,36 +134,63 @@ function drawPackageDay(){
  el.innerHTML=`<div class="day-detail-head"><span class="day-label">DAY ${selectedDay+1} / ${p.route.length}</span><h3>${esc(heading)}</h3><p class="day-summary">${esc(loc(d,'summary'))}</p></div><p class="day-description">${esc(loc(d,'description'))}</p>${d.highlights?.length?`<div class="day-highlights"><strong>${esc(t('dayHighlights'))}</strong><ul>${d.highlights.map(h=>`<li>${esc(h)}</li>`).join('')}</ul></div>`:''}<div class="day-gallery-heading"><strong>${esc(t('galleryHeading'))}</strong><small>${esc(t('galleryHint'))}</small></div><div class="day-gallery">${pictures.map((im,i)=>`<button type="button" data-photo="${esc(im.src)}" data-alt="${esc(im.alt||heading)}" aria-label="View photo ${i+1}"><img loading="lazy" src="${esc(picture(im.src))}" alt="${esc(im.alt||heading)}"/></button>`).join('')}</div><div class="day-navigation"><button type="button" data-day="${selectedDay-1}" ${selectedDay===0?'disabled':''}>← ${esc(t('previousDay'))}</button><button type="button" data-day="${selectedDay+1}" ${selectedDay===p.route.length-1?'disabled':''}>${esc(t('nextDay'))} →</button></div>`;
 }
 function openPhoto(src,alt){const dialog=$('#photoLightbox');$('#fullPhoto').src=picture(src);$('#fullPhoto').alt=alt||'';$('#photoCaption').textContent=alt||'';if(!dialog.open)dialog.showModal();}
-function updateEnquiryButton(){
- const button=$('#submitEnquiryButton');if(!button)return;
- const number=String(content.settings?.whatsapp||CONFIG.whatsapp||'').replace(/\D/g,'');
- const hasWhatsapp=number.length>=9&&number.length<=15;
- button.textContent=hasWhatsapp?t('whatsappCta'):(content.settings?.enquiryEmail||CONFIG.enquiryEmail)?t('emailCta'):t('copyCta');
+function renderEnquiryChannels(){
+ const choices=enabledChannels(content.settings||{});
+ const list=$('#enquiryChannelOptions');
+ list.innerHTML=choices.length?choices.map(c=>`<button type="submit" class="enquiry-channel-button" data-channel="${c.id}" aria-label="Save enquiry then open ${c.name}"><span aria-hidden="true" class="channel-symbol channel-${c.id}">${c.icon}</span><strong>${c.name}</strong><small>${esc(t('contactOpenChat'))} ↗</small></button>`).join(''):
+ `<button type="submit" class="enquiry-channel-button" data-channel="copy"><span class="channel-symbol">▤</span><strong>${esc(t('contactCopyChoice'))}</strong><small>${esc(t('contactNoChannel'))}</small></button>`;
 }
 function openContact(pkg=''){
- closeAllModals();$('#enquiryForm').reset();$('#enquiryTour').value=pkg;updateEnquiryButton();$('#contactSetupNote').textContent=(!content.settings.whatsapp&&!content.settings.enquiryEmail&&!CONFIG.whatsapp&&!CONFIG.enquiryEmail)?t('contactPending'):'The WhatsApp chat will open with a draft message. You must press Send in WhatsApp.';overlayOpen('contactModal');
+ closeAllModals();$('#enquiryForm').reset();$('#enquiryTour').value=pkg;renderEnquiryChannels();
+ $('#enquirySaveStatus').textContent='';
+ $('#contactSetupNote').textContent=supabaseEnabled?'We save your request securely before opening your selected chat.':
+ 'LOCAL DEMO: this enquiry is stored in this browser only. Connect Supabase to receive it on other devices.';
+ overlayOpen('contactModal');
 }
 async function copyText(text){
- if(navigator.clipboard?.writeText){try{await navigator.clipboard.writeText(text);return true;}catch{}}
- const el=document.createElement('textarea');el.value=text;el.style.position='fixed';el.style.opacity='0';document.body.append(el);el.select();let copied=false;try{copied=document.execCommand('copy');}catch{}el.remove();return copied;
+ if(navigator.clipboard?.writeText){try{await navigator.clipboard.writeText(text);return true}catch{}}
+ const el=document.createElement('textarea');el.value=text;el.style.position='fixed';el.style.opacity='0';document.body.append(el);el.select();let copied=false;try{copied=document.execCommand('copy')}catch{}el.remove();return copied;
 }
+let enquiryInFlight=false;
 async function sendEnquiry(e){
- e.preventDefault();const data=new FormData(e.currentTarget);
- const selected=content.packages.find(p=>p.id===data.get('tour'));
- const form={name:String(data.get('name')||'').trim(),email:String(data.get('email')||'').trim(),phone:String(data.get('phone')||'').trim(),days:Number(data.get('days'))||0,month:String(data.get('month')||''),tour:String(data.get('tour')||''),message:String(data.get('message')||'').trim(),language:state.lang,website:''};
+ e.preventDefault();if(enquiryInFlight)return;
+ const channel=e.submitter?.dataset.channel||'copy';
+ const formElement=e.currentTarget;
+ if(!formElement.reportValidity())return;
+ const raw=new FormData(formElement);
+ const selected=content.packages.find(p=>p.id===raw.get('tour'));
+ const form={name:String(raw.get('name')||'').trim(),email:String(raw.get('email')||'').trim(),phone:String(raw.get('phone')||'').trim(),days:Number(raw.get('days'))||0,month:String(raw.get('month')||''),tour:String(raw.get('tour')||''),message:String(raw.get('message')||'').trim(),language:state.lang,channel,website:''};
+ if(!['whatsapp','telegram','instagram','messenger','copy'].includes(channel))return;
+ const channels=enabledChannels(content.settings||{});
+ if(channel!=='copy'&&!channels.some(c=>c.id===channel)){msg('That contact channel is not enabled.');return;}
  const fields=[`BUSAN LANKA — TOUR ENQUIRY`,`Name: ${form.name}`,`Email: ${form.email}`,form.phone?`Guest phone: ${form.phone}`:'',`Days: ${form.days||'Flexible'}`,`Travel month: ${form.month||'Flexible'}`,`Tour: ${selected?.name||'Custom tour'}`,`Message: ${form.message||'Please send me further details.'}`].filter(Boolean);
  const body=fields.join('\n');
- // Saving the private lead is independent of WhatsApp. Enquiry storage works only after deploying Supabase Edge Function.
- if(supabaseEnabled){storeTourEnquiry(form).catch(err=>console.warn('Lead not stored; external contact route remains available:',err.message));}
- const number=String(content.settings.whatsapp||CONFIG.whatsapp||'').replace(/\D/g,'');
- if(number.length>=9&&number.length<=15){
-  const url=`https://wa.me/${number}?text=${encodeURIComponent(body)}`;
-  const link=document.createElement('a');link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.style.display='none';document.body.append(link);link.click();link.remove();
-  msg('WhatsApp chat prepared — press Send in WhatsApp to deliver your enquiry.');closeModal('contactModal');return;
- }
- if(content.settings.enquiryEmail||CONFIG.enquiryEmail){location.href=`mailto:${encodeURIComponent(content.settings.enquiryEmail||CONFIG.enquiryEmail)}?subject=${encodeURIComponent('Busan Lanka tour enquiry')}&body=${encodeURIComponent(body)}`;closeModal('contactModal');return;}
- const copied=await copyText(body);
- if(copied){msg(t('copied'));closeModal('contactModal');}else{msg(t('contactPending'));$('#contactSetupNote').textContent=body;}
+ const status=$('#enquirySaveStatus');
+ const buttons=[...$('#enquiryChannelOptions').querySelectorAll('button')];
+ enquiryInFlight=true;buttons.forEach(b=>b.disabled=true);status.textContent='Saving your tour enquiry...';
+ // Open a temporary blank tab directly from the click gesture, preventing popup blockers after async DB write.
+ const popup=channel==='copy'?null:window.open('about:blank','_blank');
+ // Try clipboard while the original submit gesture is still active.
+ const copiedMessage=channel!=='whatsapp'?await copyText(body):true;
+ try{
+  const saved=supabaseEnabled?await storeTourEnquiry(form):saveLocalEnquiry(form);
+  if(!saved?.saved)throw Error('The enquiry was not saved. Please retry.');
+  const url=contactUrl(channel,content.settings||{},body);
+  if(channel!=='whatsapp'){
+   if(!copiedMessage){status.textContent='Enquiry saved, but copying the message was blocked. Copy your message manually below before sending.';
+    popup?.close(); const output=document.createElement('textarea');output.readOnly=true;output.rows=7;output.value=body;output.className='enquiry-copy-fallback';status.after(output);return;}
+  }
+  if(url){
+   if(popup){popup.location.replace(url)}else{
+    const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=`Open ${CHANNEL_NAMES[channel]}`;a.className='enquiry-manual-link';status.after(a);
+   }
+   const routeNote=channel==='whatsapp'?'WhatsApp draft opened. Press Send in WhatsApp.':`${CHANNEL_NAMES[channel]} opened. Paste the copied message and press Send.`;
+   status.textContent=`Enquiry saved${saved.mode==='local'?' in this browser (LOCAL DEMO)':' in Supabase'}. ${routeNote}`;
+  }else if(channel==='copy'){
+   status.textContent=`Enquiry saved${saved.mode==='local'?' in this browser only':''}. Message copied to your clipboard.`;
+  }else {popup?.close();throw Error('The selected social account has no valid chat link.');}
+ }catch(err){popup?.close();status.textContent=`Unable to save enquiry: ${err.message}. Please retry. No message has been sent.`;}
+ finally{enquiryInFlight=false;buttons.forEach(b=>b.disabled=false)}
 }
 
 function addChat(role,text){
@@ -249,17 +305,26 @@ function tourInteractions(e){
 }
 function initEvents(){
  $('#langSelect').addEventListener('change',e=>setLanguage(e.target.value));
+ const toggle=$('#publicMenuToggle'),menu=$('#publicMobileMenu');
+ function closeMobileMenu(){menu.hidden=true;toggle.setAttribute('aria-expanded','false');}
+ toggle.addEventListener('click',()=>{const next=menu.hidden;menu.hidden=!next;toggle.setAttribute('aria-expanded',String(next));});
+ menu.addEventListener('click',e=>{if(e.target.closest('a'))closeMobileMenu();if(e.target.closest('#mobileMenuContact')){closeMobileMenu();openContact();}});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMobileMenu()});
+ document.addEventListener('click',e=>{if(!menu.hidden&&!e.target.closest('#publicMobileMenu,#publicMenuToggle'))closeMobileMenu()});
+
  $('#tourFilters').addEventListener('click',e=>{const button=e.target.closest('[data-filter]');if(button){state.filter=button.dataset.filter;renderFilters();renderTours();}});
  $('#tourGrid').addEventListener('click',e=>{const b=e.target.closest('[data-package]');if(b)showPackage(b.dataset.package);});
  $('#packageModal').addEventListener('click',e=>{const b=e.target.closest('[data-enquire]');if(b){openContact(b.dataset.enquire);return;}const day=e.target.closest('[data-day]');if(day){selectedDay=Number(day.dataset.day);drawPackage();return;}const photo=e.target.closest('[data-photo]');if(photo)openPhoto(photo.dataset.photo,photo.dataset.alt);});
  $('#galleryGrid').addEventListener('click',e=>{const b=e.target.closest('[data-photo]');if(b)openPhoto(b.dataset.photo,b.dataset.alt);});
  $('#photoClose').addEventListener('click',()=>$('#photoLightbox').close());
  $('#heroControls').addEventListener('click',e=>{const dot=e.target.closest('[data-slide]');if(dot){changeSlide(Number(dot.dataset.slide));startSlider();return;}const arrow=e.target.closest('[data-move]');if(arrow){changeSlide(currentSlide+Number(arrow.dataset.move));startSlider();}});
- $$('.hero').forEach(el=>{el.addEventListener('mouseenter',()=>clearInterval(slideTimer));el.addEventListener('mouseleave',startSlider);});
+ $$('.hero').forEach(el=>{el.addEventListener('mouseenter',()=>clearInterval(slideTimer));el.addEventListener('mouseleave',startSlider);el.addEventListener('focusin',()=>clearInterval(slideTimer));el.addEventListener('focusout',startSlider);});
+ document.addEventListener('visibilitychange',startSlider);
  $$('[data-close]').forEach(b=>b.addEventListener('click',()=>closeModal(b.dataset.close)));
  $('#genericOverlay').addEventListener('click',closeAllModals);
  ['headerContact','footerContact'].forEach(id=>$('#'+id).addEventListener('click',()=>openContact()));
- ['heroGuide','sectionGuide','bottomGuide','floatingAi','footerAi'].forEach(id=>$('#'+id).addEventListener('click',openGuide));
+ ['sectionGuide','bottomGuide','floatingAi','footerAi'].forEach(id=>$('#'+id).addEventListener('click',openGuide));
+ $('#heroGuide').addEventListener('click',()=>openContact());
  ['tryTour','bottomTrip'].forEach(id=>$('#'+id).addEventListener('click',startTour));
  $('#enquiryForm').addEventListener('submit',sendEnquiry);
  $('#guideForm').addEventListener('submit',async e=>{e.preventDefault();const input=$('#guideInput');let q=input.value;input.value='';await askGuide(q);});
@@ -293,6 +358,7 @@ async function init(){
  $('#year').textContent=new Date().getFullYear();
  try{content=await publicContent();}catch(e){console.warn('Published content unavailable; showing bundled preview',e);content=structuredClone(DEFAULT_CONTENT);msg('Site content unavailable; showing preview.');}
  setLanguage(detectLang());initEvents();startSlider();
+ document.dispatchEvent(new CustomEvent('busan:content-ready',{detail:{content}}));
  if('serviceWorker' in navigator && location.protocol!=='file:')navigator.serviceWorker.register('./sw.js').catch(()=>{});
  if(new URL(location.href).searchParams.get('tour')==='1')startTour();
 }

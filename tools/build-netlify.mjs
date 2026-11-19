@@ -10,9 +10,9 @@ const root = resolve(import.meta.dirname, '..');
 const out = join(root, 'dist');
 const publicFiles = [
   'index.html','admin.html',
-  'styles.css','theme-v2.css','responsive-v3-2.css','admin.css',
+  'styles.css','theme-v2.css','responsive-v3-2.css','pdf-home-v4.css','brand-background-v4-2.css','brand-polish-v4-3.css','watercolor-ui-v4-6.css','pdf-home-v4.js','admin.css','admin-v3-4.css','admin-brand-v4-2.css','admin-v4-3.css',
   'app.js','admin.js','ai-service.js','content-store.js','data.js',
-  'sw.js','manifest.webmanifest'
+  'sw.js','manifest.webmanifest','guest-reviews.js','guest-reviews.css','enquiry-channels.js','engagement-v4-7.css','reviews-service.js','country-data.js'
 ];
 const publicDirs = ['assets'];
 

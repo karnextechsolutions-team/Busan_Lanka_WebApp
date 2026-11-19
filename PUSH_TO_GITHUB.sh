@@ -24,5 +24,5 @@ node tests/v3-smoke.mjs
 node tests/gemini-smoke.mjs
 git add .
 git status --short
-git commit -m 'Initial Busan Lanka V3.2 responsive travel website and CMS' || echo 'No uncommitted changes'
+git commit -m 'Busan Lanka V3.5 animated Sri Lanka scroll stories' || echo 'No uncommitted changes'
 git push -u origin main

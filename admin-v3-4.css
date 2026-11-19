@@ -1,0 +1,21 @@
+/* Matching CMS color polish, no functionality changes */
+body{background:linear-gradient(180deg,#fff8ee 0%,#f2f6fc 100%)}
+.admin-top{background:linear-gradient(100deg,#fff 0%,#fff8ef 65%,#fff0f3 100%);border-top:4px solid #e13558;box-shadow:0 3px 18px rgba(15,30,62,.07)}
+.admin-sidebar{background:radial-gradient(ellipse at 12% 9%,rgba(7,124,80,.35),transparent 45%),linear-gradient(165deg,#132b49,#161e3d 75%,#392048)}
+.nav-link.active{background:linear-gradient(105deg,#d71569,#e75b4e 48%,#1255ad);color:#fff;box-shadow:0 5px 16px rgba(0,0,0,.18)}
+.gold-btn{background:linear-gradient(105deg,#d71569,#e03d60 50%,#1255ad);color:white}
+.dashboard-banner{background:linear-gradient(110deg,rgba(7,45,53,.85),rgba(30,30,70,.58)),url('./assets/sigiriya-aerial.webp') center/cover}
+.dashboard-banner>span{color:#ffe095}.dashboard-banner a{background:linear-gradient(100deg,#d71569,#1255ad);color:white}
+.stat-grid article{border:1px solid #f4e0d0;box-shadow:0 5px 18px rgba(30,34,53,.06)}
+.stat-grid article:nth-child(4n+1){border-top:5px solid #087448}
+.stat-grid article:nth-child(4n+2){border-top:5px solid #eea53d}
+.stat-grid article:nth-child(4n+3){border-top:5px solid #d71569}
+.stat-grid article:nth-child(4n+4){border-top:5px solid #1255ad}
+.workspace-header .kicker{color:#087448}
+.editor-item.selected{background:#fff0f2;border-color:#db2870}
+.day-tabs button.active{background:linear-gradient(104deg,#ffe0aa,#ffd8e2);border-color:#d71569;color:#682042}
+.mode-badge{background:#fff2e3;border-color:#f3c6a4;color:#914a16}
+.mobile-menu-toggle{background:linear-gradient(120deg,#d71569,#1255ad);color:#fff}
+.admin-mobile-nav{border-top:3px solid #f3b649}
+.admin-mobile-nav button.active{background:linear-gradient(105deg,#d71569,#1255ad);color:#fff}
+@media(max-width:760px){.admin-sidebar{background:linear-gradient(170deg,#132b49,#29214e)}.admin-main{background:transparent}}

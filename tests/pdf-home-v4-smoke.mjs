@@ -1,0 +1,23 @@
+import {readFileSync,existsSync} from 'node:fs';
+import assert from 'node:assert/strict';
+import {DEFAULT_CONTENT} from '../content-store.js';
+const read=x=>readFileSync(new URL('../'+x,import.meta.url),'utf8');
+const html=read('index.html'),css=read('pdf-home-v4.css'),app=read('app.js'),cms=read('admin.js'),sw=read('sw.js');
+for(const id of ['pdfTourSearch','pdfDestination','pdfTravellers','pdfDate','pdfViewDestinations','destinationGrid','services','why-us','tours','tourGrid','guidePanel','contactModal','packageModal','contact','footerSocialLinks','pdfFooterContacts'])
+ assert(html.includes(`id="${id}"`),`Missing element: ${id}`);
+assert(!html.includes('story-v3-5.js')&&!html.includes('story-scene'),'No old animated scenes');
+assert(!html.includes('story-v3-5.css'),'No old animation CSS');
+assert(css.includes('.pdf-destinations')&&css.includes('.pdf-service-grid')&&css.includes('.pdf-why')&&css.includes('.pdf-footer-grid'));
+assert(html.includes('pdf-home-v4.css')&&html.includes('pdf-home-v4.js'));
+assert(DEFAULT_CONTENT.slides[0].title.includes('postcard.'));
+assert(DEFAULT_CONTENT.destinations.some(d=>d.id==='sigiriya')&&DEFAULT_CONTENT.destinations.some(d=>d.id==='kandy'));
+assert(DEFAULT_CONTENT.packages.length>=3);
+assert(DEFAULT_CONTENT.reviews.length===0,'No fake reviews');
+assert(DEFAULT_CONTENT.translations.en.pdfServiceTourTitle==='Tour packages');
+assert(DEFAULT_CONTENT.settings.whyBackgroundImage&&DEFAULT_CONTENT.settings.ctaBackgroundImage);
+assert(cms.includes('settings.whyBackgroundImage')&&cms.includes('settings.ctaBackgroundImage'));
+assert(app.includes('html')&&app.includes('pdf-why-bg')&&app.includes('pdf-cta-bg'));
+assert(sw.includes('pdf-home-v4.css')&&sw.includes('pdf-home-v4.js'));
+assert(existsSync(new URL('../assets/sigiriya-heritage.webp',import.meta.url)));
+assert(!html.includes('USD 799')&&!html.includes('Rs. 15000'),'No public package prices');
+console.log('PASS PDF-designed homepage markup, CMS editability, images, no animation scenes, no prices and existing AI/package features');

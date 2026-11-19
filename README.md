@@ -1,134 +1,90 @@
-# V3.2 Mobile Responsive Update — 16 Nov 2026
+# CURRENT RELEASE — V4.7 Enquiry Channels, Mobile Navigation & Reviews Carousel
 
-This version is built from Busan Lanka V3.1 with the Gemini AI Edge Function preserved.
+This ZIP is the complete V4.6 watercolor website plus the V4.7 functionality update. It retains all prior CMS, package pages, QR tour, reviews moderation, Supabase and Gemini source.
 
-## What changed
-- Mobile hero layout and automatic background-image slider stay within the screen at 320–600px.
-- Readable hero heading and buttons for narrow phones; photographic backgrounds use `background-size: cover` rather than distorting images.
-- Mobile bottom navigation redesigned as a floating black/gold 4-tab bar: **Home / Tours / AI Guide / My Tour**. Contact can still be reached from Plan My Trip / enquiries.
-- Bottom tabs auto-hide while tour package details, contact form, live AI panel, photo lightbox or My Tour overlay are open.
-- Fixed mobile horizontal scroll/overflow on the AI preview, hero, gallery, destination and itinerary sections.
-- Tablet 601–820px layout refined, desktop retained.
-- PWA cache name changed so visitors can receive the latest styles.
+**Read `V4_7_SETUP_SINHALA.md` first for exact Ubuntu commands, existing-project SQL migration, updated Edge Function deployment, chat link limitations and testing.**
 
-## Installation
-Extract ZIP and run:
+**LATEST: V4.6 — Uploaded Watercolor Waves. Read `V4_6_WATERCOLOR_UPDATE.md` for current run instructions.**
 
-```bash
-cd ~/Downloads/Busan_Lanka_WebApp_v3_2_Mobile_Fix
-./RUN_UBUNTU.sh
-```
-Open `http://localhost:8080` and admin `http://localhost:8080/admin.html`.
-If an old server still runs on port 8080, stop it (`Ctrl+C`) before starting this one.
+**CURRENT VERSION: V4.2 — EXACT CLIENT LOGO PALETTE (see `V4_2_EXACT_LOGO_PALETTE.md`)**
 
-**Already connected Supabase?** The ZIP contains a blank `supabase-config.js` template; copy your existing configured `supabase-config.js` from your working V3.1 folder into this new V3.2 folder. It should contain only the project URL and publishable/anon key, NEVER a service role key. Supabase Edge Function secrets (including `GEMINI_API_KEY`) are stored on Supabase and do not need to be re-entered when keeping the same project.
+# Busan Lanka Travel & Tours — V4 PDF Homepage Edition
 
-**Already edited content?** Local demo edits are browser-local. They appear only on the same site origin and browser profile; cloud-published content is read from Supabase when configured. This ZIP does not erase or migrate your cloud data.
+This complete runnable source project is based on the client's supplied `Busan Lanka Homepage.pdf` (3 pages) and the user's V3.5 source ZIP. **The previous scroll animation sections are removed.** This is a functioning website layout, not a screenshot.
 
-If the browser shows old cached content: reload with `Ctrl+Shift+R`. In Chrome, DevTools → Application → Service Workers → Update can refresh the older PWA. Avoid clearing site data if you have unsaved local demo edits.
-
-## Testing notes
-- Chromium inline-rendered responsive layout at 320, 360, 375, 390, 412, 430, 600, 768, 820, 1024, 1280, 1440px: no document horizontal overflow.
-- Chromium UI test with V3 JavaScript: 4 nav tabs, 4 hero slides, 6 packages, 6 destinations, AI panel opening, package day selection, no runtime errors.
-- 28 pre-existing smoke checks, V3 smoke checks, Gemini request-format tests and simulated Gemini Edge Function tests passed locally.
-- Live phone/device, real Gemini cloud and real Supabase production checks were not performed here.
-
----
-
-# BUSAN LANKA — Smart Tourism Web App V3.1 (Gemini AI)
-
-Version 3.1 builds directly on V2/V3 and retains the yellow/black/white public website, 6-second hero slideshow, detailed day-by-day photo itineraries, multilingual website, QR tour preview and price-free enquiries.
-
-## What's new in V3
-
-1. **Mobile app-style Admin CMS:** bottom tabs (Home, Packages, Media, Leads, More), collapsible sidebar drawer, touch-size input fields, responsive editing screens, Save & Publish. All V2 content editors remain available on mobile.
-2. **WhatsApp tour enquiries:** when the authorized owner adds a correct international WhatsApp number in Admin → Site Settings, `Send enquiry via WhatsApp` opens a pre-filled WhatsApp chat. **The tourist must tap Send inside WhatsApp.** If not configured, it uses email or copy fallback; no fake contact details.
-3. **Social pages:** manage Facebook, Instagram, YouTube, TikTok, Tripadvisor, and Google Reviews URLs in Admin → Site Settings. Public footer shows only valid configured HTTPS links.
-4. **Actual Supabase leads:** optional `submit-enquiry` Edge Function validates and stores visitor enquiry information in a private database table, admin `Tour Enquiries` page reads it, and admins may mark it contacted or closed. External WhatsApp messages do not automatically appear in Supabase if the function was not deployed or the request failed.
-5. **Live AI implementation:** frontend uses `travel-ai` Edge Function to call Google Gemini on the server, with site-published package context, conversation history, multilingual replies, IP-hashed per-visitor and global rate limits. No AI secret enters browser code. Unconnected mode remains explicitly labeled SAMPLE AI, never pretends to be live.
-6. **Supabase content:** V2 authenticated CMS / Storage stays intact; public content reads published database JSON. SQL now includes lead tables and rate limiter.
-
-**There are no real project keys in this ZIP.** Database connection, live AI service, actual emails/WhatsApp number, verified media and real reviews are NOT active until setup below. An empty Supabase config continues to use browser-local demo editing.
-
-## Ubuntu local run
+## Run on Ubuntu
 
 ```bash
-unzip Busan_Lanka_WebApp_v3.zip
-cd Busan_Lanka_WebApp_v3
+cd ~/Downloads
+unzip Busan_Lanka_PDF_Homepage_v4.zip
+cd Busan_Lanka_PDF_Homepage_v4
+chmod +x RUN_UBUNTU.sh
 ./RUN_UBUNTU.sh
 ```
 
-- Website: http://localhost:8080/
-- Mobile/desktop Admin: http://localhost:8080/admin.html
-- Vehicle QR demo: http://localhost:8080/?tour=1
+Visit http://localhost:8080 and http://localhost:8080/admin.html. QR demo: http://localhost:8080/?tour=1. If port 8080 is already in use, stop the old local server first. Refresh with Ctrl+Shift+R to clear old assets. Service worker cache has a new version identifier.
 
-No npm dependencies required for the local frontend. Chrome responsive DevTools can simulate devices. `localhost` runs locally only: real mobile phones need an HTTPS deployment or a configured local-network development server.
+## Matches the supplied PDF
 
-## Connect your Supabase project
+- Glass-style logo/navigation over a photographic Sigiriya hero with **"Wake up inside the postcard."** and the PDF's primary CTAs.
+- Floating destination / travel date / travellers search form; destination filters available itinerary cards. The selected date/group size is carried into the enquiry draft. A search is not a confirmed booking or a price lookup.
+- Asymmetric popular destinations layout: large Sigiriya, smaller Kandy and Golden Beaches, with a View All toggle.
+- 4-card "Everything for the trip, in one place" services grid.
+- Image-backed green "Why Busan Lanka" section with three translucent trust cards.
+- Rounded pink–blue CTA and matte black footer, designed like PDF page 3.
+- Fully responsive mobile/tablet/desktop; existing four-icon mobile navigation remains.
 
-1. Create or open the **correct Busan Lanka** Supabase project (do not use another client's project).
-2. Supabase Dashboard → SQL Editor → run **`docs/supabase.sql`**. This is additive to the previous schema and creates the `site_content`, `cms_admins`, `tour_enquiries`, `api_rate_counters` tables and `site-media` Storage bucket.
-3. Supabase Authentication → Users → create an admin user with a strong password. Copy its **User UUID**. Then in SQL Editor run:
+## Preserved from previous project
 
-   ```sql
-   insert into public.cms_admins(user_id) values ('YOUR_ADMIN_AUTH_UUID') on conflict (user_id) do nothing;
-   ```
+- No public package pricing; category filters, package details, complete day-by-day itineraries and individual destination photo galleries.
+- Guest photos/reviews and social media, with no invented reviews or contact details.
+- WhatsApp/email enquiry flow; sends a pre-filled draft the visitor must send. Database lead storage depends on Supabase setup.
+- Gemini travel AI Edge Function source, multilingual UI, QR tour, voice guide and location features (all subject to their existing requirements and permissions).
+- Admin CMS for hero slides, destinations/images, packages/days, gallery, reviews, translations, contact and social settings. Added editable **Why section and final CTA background images** under Site Settings. New services, why-us and CTA text is editable under Texts & Translations.
+- Supabase SQL, RLS, functions, Netlify safe static build and GitHub helper scripts remain bundled.
 
-4. Edit **`supabase-config.js`**: paste only the project `https://<PROJECT_REF>.supabase.co` URL and **publishable (or legacy anon) API key**. These values are public, protected by the included RLS policies. **NEVER paste the service_role / secret key or GEMINI_API_KEY into any browser file.**
-5. Run the website again. The Admin page requires real Supabase Auth sign-in when cloud config is populated. Login, edit something, hit **Save & Publish**, refresh the public website in a different device and confirm the content is synced.
-6. Admin → Site Settings: enter actual Busan Lanka WhatsApp number using **country code and digits only**, email and actual social HTTPS URLs. Save & Publish. Test enquiry chat with a real device.
-7. Admin → Hero Slider / Packages / Gallery / Reviews → replace demonstration images and text with client-owned content and permission-based reviews. Do not publish sample tourist testimonials.
+## Supabase / deployment
 
-### Deploy the two Edge Functions for live AI + saved enquiries
+`supabase-config.js` is browser-public configuration. **Never put a Gemini/OpenAI key or Supabase service-role key in it.** Actual Gemini secrets must remain on Supabase Edge Functions. The ZIP includes no private credentials. If your previous local V3.5 project has a configured `supabase-config.js`, copy *your own* public URL/publishable-key settings into the new folder before testing. Old CMS edits and genuine images can remain in Supabase; only unchanged sample hero/destination copy is automatically migrated to the PDF text. Custom edits are preserved.
 
-Supabase CLI is required for deployment; `npx supabase` can be used on a suitable Node installation (or install CLI using Supabase's supported installation method). From the extracted project folder:
+Netlify: import the GitHub repository, build with `node tools/build-netlify.mjs`, publish `dist`. Set `PUBLIC_SUPABASE_URL` and `PUBLIC_SUPABASE_ANON_KEY` in Netlify if using Supabase. See `DEPLOY_GUIDE_SINHALA.md` and `GEMINI_SETUP_SINHALA.md` for the prior backend configuration workflow.
+
+## Test commands
 
 ```bash
-npx supabase login
-npx supabase link --project-ref YOUR_PROJECT_REF
-# Set project secrets using an interactive secure CLI environment.
-# DO NOT put secret values in a public repository or client-side JavaScript.
-
-# GEMINI_API_KEY is already saved in Supabase Dashboard > Edge Functions > Secrets
-npx supabase secrets set BUSAN_RATE_LIMIT_SALT=YOUR_RANDOM_LONG_PRIVATE_SECRET
-npx supabase secrets set BUSAN_ALLOWED_ORIGINS=https://yourdomain.com,http://localhost:8080
-npx supabase functions deploy travel-ai --no-verify-jwt
-npx supabase functions deploy submit-enquiry --no-verify-jwt
+node tests/smoke.mjs
+node tests/v3-smoke.mjs
+node tests/gemini-smoke.mjs
+node tests/pdf-home-v4-smoke.mjs
+node tools/build-netlify.mjs
 ```
 
-The `--no-verify-jwt` flag permits tourists without accounts; **these public endpoints use database-backed abuse quotas, allowed Origin checks and server-side credentials**. A publishable API key is not a secret. Keep domain origins current, enable budget alerts/cost monitoring and add CAPTCHA/WAF before wider marketing. If the Supabase function is deployed under a different URL, adapt `ai-service.js`. The Gemini model defaults to `gemini-3.5-flash-lite`; set `GEMINI_MODEL` using Supabase Secrets to choose another supported model. See `GEMINI_SETUP_SINHALA.md`.
+Tests above cover static content/security and Netlify build, not live Supabase or real Gemini API calls. Browser layout was visually checked at 320, 360, 412, 1024 and 1440 pixel viewport widths using an inline static rendering. Complete interactive device QA should still be carried out before a public launch.
 
-**Test in production:** inspect the browser console and Supabase Function Logs. Ask AI a Sri Lanka question; it should respond with `AI • Live`. Submit a test tour enquiry; the guest must press **Send** in WhatsApp, and a separate record should show in Admin → Tour Enquiries if `submit-enquiry` succeeded. Never assume WhatsApp delivered a message simply because the chat opened.
+## File map
 
-### Security / operational notes
+- `index.html` — public homepage markup, dialogs and mobile tabs
+- `pdf-home-v4.css`, `pdf-home-v4.js` — approved PDF design and homepage interactions
+- `app.js`, `data.js`, `content-store.js`, `ai-service.js` — existing functionality
+- `admin.html`, `admin.js`, `admin.css` — editable CMS
+- `assets/` — bundled concept photography and icon; replace with client-licensed approved photos before launch
+- `docs/supabase.sql`, `supabase/functions/` — backend
+- `tools/build-netlify.mjs` — restricted publication build
 
-- **Content/admin:** only authenticated user IDs in `cms_admins` can publish or read leads due to RLS. Avoid disabling RLS.
-- **Guests' personal data:** enquiry storage contains contact data. Add a formal privacy notice, appropriate retention/deletion policy, and consent/marketing terms before go-live. Never use the enquiry data for unauthorized marketing.
-- **Abuse limiting:** DB RPC uses atomic rate counters with hashed per-IP fingerprints and daily global caps. It is a baseline, not a guaranteed bot-blocking solution; proxy headers and origin checks can be spoofed, so use CAPTCHA/WAF and provider spending limits. Periodically delete stale counters.
-- **Live AI:** errors are visibly reported if the Edge Function or Gemini secret is missing. The app does NOT silently call live AI in local demo mode. Always verify heritage facts and wildlife notices before publishing.
-- **GPS/notifications:** QR tours are an active-tab web experience. Continuous phone-locked background GPS is not guaranteed by a PWA and needs native-app development. No fabricated real-time elephant alerts.
-- **Photos:** the bundled images are preview-only samples; confirm commercial publication rights with the client before deploying.
-- **Reviews:** no imaginary testimonials are seeded. Use genuine customer-approved reviews only.
-- **Enquiries:** the primary WhatsApp flow works without Supabase once a real WhatsApp number is configured; saving leads is optional but requires the backend.
-- **Testing:** Node syntax and local HTTP tests pass; automated Chromium navigation is restricted by the execution environment and therefore has NOT been counted as a browser pass. Do real Android/iOS QA before deployment.
+**Important:** PDF page 3 lists placeholder phone, email, and office details. This project intentionally displays only contact details configured by the admin. There are no invented contact details or paid package prices.
 
-## Files to know
+## V4.1 logo-color watercolor background
 
-- `index.html`, `app.js`, `styles.css`, `theme-v2.css`: public UI
-- `admin.html`, `admin.js`, `admin.css`: responsive admin CMS and private leads
-- `content-store.js`: RLS-backed Supabase CMS data and local fallback
-- `ai-service.js`: public client for Supabase Functions (no secrets)
-- `docs/supabase.sql`: schema/RLS/quotas
-- `supabase/functions/travel-ai/index.ts`: server-side Gemini AI integration
-- `GEMINI_SETUP_SINHALA.md`: step-by-step Gemini deployment and troubleshooting
-- `supabase/functions/submit-enquiry/index.ts`: secure enquiry storage
-- `supabase-config.js`: **public** URL and publishable key placeholders
+The PDF homepage layout remains unchanged. A new `brand-background-v4-2.css` and two lightweight, locally served SVG overlays in `assets/` add warm ivory, soft gold/orange/pink/red mist and gentle wave shapes behind destinations, services, tours, AI, QR Guide, gallery and CTA. Hero imagery, booking functions, CMS, and backend integrations are untouched. Deep green is a subtle accent. No autoplay video, parallax script or heavy animations were added. For production run `node tools/build-netlify.mjs`; preview with `./RUN_UBUNTU.sh`.
 
-Supabase Edge Functions automatically receive `SUPABASE_SECRET_KEYS` (new 2026 format) or legacy `SUPABASE_SERVICE_ROLE_KEY` from the hosted project. This code supports both formats; new secret keys are sent on `apikey`, never as `Authorization: Bearer`.
 
-**Never send private API keys in screenshots or this chat; configure them in a secure environment.**
+## Latest V4.3 improvements
+Read `V4_3_UPDATE_GUIDE_SINHALA.md` for exact slider, logo pink-blue CTA, and full page editor instructions.
 
----
+## V4.4 — Guest Reviews & Moderation
 
-## Deploy on Netlify (GitHub integration)
-See [DEPLOY_GUIDE_SINHALA.md](DEPLOY_GUIDE_SINHALA.md). Netlify builds only whitelisted public files into `dist/` via `node tools/build-netlify.mjs`. Set PUBLIC_SUPABASE_URL and PUBLIC_SUPABASE_ANON_KEY as Netlify build environment variables. Gemini remains server-side on Supabase Edge Functions.
+Guest review form (country/flag, five stars, visited month/year, trip type, title, text, up to two photos), separate Reviews navigation, and Supabase-backed moderation with private photos. Use **`V4_4_REVIEWS_SETUP_SINHALA.md`**. If your existing database already has the V4.3 schema, run **`docs/reviews_v4_4.sql`** in Supabase SQL Editor; for fresh projects use the combined **`docs/supabase.sql`**. Deploy **`submit-review`** and **`review-feed`** Edge Functions. Reviews only become public after an admin approves them. Local Demo Mode uses the same browser and is not cloud published. The public site still shows no tour prices.
+
+## V4.5 admin/reviews stability patch
+
+This release fixes the V4.4 Admin white screen (`admin.js` parse error), adds submitted-date-relative labels (from `created_at`), and collapses long reviews to five lines with `Read more / Read less`. See `V4_5_FIXES_SINHALA.md`. No schema migration is required if V4.4 reviews SQL is already applied.

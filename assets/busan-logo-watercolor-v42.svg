@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1050" preserveAspectRatio="xMidYMid slice">
+<defs>
+  <filter id="watercolor" x="-40%" y="-60%" width="180%" height="220%"><feGaussianBlur stdDeviation="65"/></filter>
+  <radialGradient id="orange"><stop stop-color="#F75703" stop-opacity=".45"/><stop offset="1" stop-color="#F75703" stop-opacity="0"/></radialGradient>
+  <radialGradient id="gold"><stop stop-color="#E99E45" stop-opacity=".42"/><stop offset="1" stop-color="#E99E45" stop-opacity="0"/></radialGradient>
+  <radialGradient id="pink"><stop stop-color="#F4566C" stop-opacity=".42"/><stop offset="1" stop-color="#F4566C" stop-opacity="0"/></radialGradient>
+  <radialGradient id="red"><stop stop-color="#CC0503" stop-opacity=".25"/><stop offset="1" stop-color="#CC0503" stop-opacity="0"/></radialGradient>
+  <radialGradient id="green"><stop stop-color="#1B673D" stop-opacity=".17"/><stop offset="1" stop-color="#1B673D" stop-opacity="0"/></radialGradient>
+  <radialGradient id="ivory"><stop stop-color="#FAD888" stop-opacity=".50"/><stop offset="1" stop-color="#FAD888" stop-opacity="0"/></radialGradient>
+  <linearGradient id="ribbon" x1="0" x2="1" y1="0" y2="0"><stop stop-color="#E99E45"/><stop offset=".25" stop-color="#FAD888"/><stop offset=".54" stop-color="#F75703"/><stop offset=".78" stop-color="#F4566C"/><stop offset="1" stop-color="#CC0503"/></linearGradient>
+</defs>
+<g filter="url(#watercolor)" opacity=".85">
+  <ellipse cx="65" cy="110" rx="400" ry="265" fill="url(#orange)"/>
+  <ellipse cx="320" cy="850" rx="460" ry="310" fill="url(#ivory)"/>
+  <ellipse cx="1350" cy="200" rx="515" ry="340" fill="url(#pink)"/>
+  <ellipse cx="1490" cy="885" rx="395" ry="320" fill="url(#red)"/>
+  <ellipse cx="810" cy="1030" rx="520" ry="185" fill="url(#gold)"/>
+  <ellipse cx="50" cy="640" rx="320" ry="290" fill="url(#green)"/>
+</g>
+<g fill="none" stroke-linecap="round" opacity=".11">
+  <path d="M-150 640 C200 420 450 895 790 630 S1360 345 1770 510" stroke="url(#ribbon)" stroke-width="120"/>
+  <path d="M-140 740 C205 600 435 920 810 730 S1360 525 1760 670" stroke="url(#ribbon)" stroke-width="52"/>
+</g>
+</svg>

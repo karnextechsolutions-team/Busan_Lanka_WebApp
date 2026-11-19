@@ -1,0 +1,61 @@
+/* V4.3 logo fidelity and working auto-sliding CMS hero. Loaded LAST. */
+:root{
+  --logo-pink:#E50A61;
+  --logo-blue:#0954AD;
+  --logo-subtitle-gradient:linear-gradient(100deg,#E50058 0%,#D80B65 43%,#87409C 70%,#0954AD 100%);
+  --premium-cta:linear-gradient(103deg,#D90058 0%,#EB296E 37%,#9C3C9A 65%,#0954AD 100%);
+  --brand-gradient:var(--premium-cta);
+}
+/* Signature pink-to-blue pill in the client's own TRAVEL & TOURS logo. */
+.brand-type small,.site-header .brand-type small,.footer-brand .brand-type small{
+ background:var(--logo-subtitle-gradient)!important;color:#fff!important;
+ box-shadow:0 5px 15px rgba(126,35,126,.16)!important;
+}
+/* Apply the SAME memorable gradient to every primary action, including the buttons from reference 3. */
+.button-gradient,.header-plan,.pdf-search-submit,#submitEnquiryButton,.floating-ai,
+.pdf-footer-plan,.tour-exit,.guide-form button,.journey-phone-btn,
+.bottom-nav .bottom-ai .mobile-nav-icon{
+ background:var(--premium-cta)!important;color:#fff!important;
+ border-color:transparent!important;
+}
+.pdf-explore-btn,.hero-buttons .pdf-explore-btn{
+ background:var(--premium-cta)!important;color:#fff!important;
+ box-shadow:0 12px 27px rgba(214,12,95,.24)!important;
+}
+.header-plan,.button-gradient,.pdf-explore-btn,.pdf-search-submit{
+ box-shadow:0 9px 23px rgba(194,15,96,.18)!important;
+}
+.pdf-view-all{border-bottom-color:#D81466!important}
+.filters .filter.active{background:var(--premium-cta)!important;color:white!important;border-color:transparent!important}
+.package-footer .button,.contact-modal button[type="submit"],.tour-card .tour-action button:not(.text-action){transition:transform .2s,filter .2s}
+.button-gradient:hover,.pdf-search-submit:hover,.pdf-explore-btn:hover,.header-plan:hover,
+.floating-ai:hover{filter:saturate(1.15) brightness(1.06)}
+/* CMS slides are never hidden: manual arrows and dots are visible atop the photo, away from search. */
+.hero.pdf-hero .hero-controls{display:flex!important;position:absolute;z-index:8;
+ left:auto!important;right:max(24px,calc((100% - 1210px)/2));bottom:112px;
+ top:auto;transform:none!important;width:auto;max-width:calc(100% - 36px);
+ gap:11px;align-items:center;justify-content:flex-end;pointer-events:none}
+.hero.pdf-hero .hero-controls[hidden]{display:none!important}
+.hero.pdf-hero .hero-controls>button{pointer-events:auto;display:grid;place-items:center;
+ width:37px;height:37px;min-width:37px;border-radius:50%;border:1px solid rgba(255,255,255,.75);
+ color:#fff;background:rgba(22,27,32,.45);font-size:25px;line-height:1;
+ -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.hero.pdf-hero .hero-controls .hero-dots{display:flex;align-items:center;gap:6px;pointer-events:auto}
+.hero.pdf-hero .hero-controls .hero-dot{background:#ffffffb9;min-width:7px;width:7px;height:7px;border-radius:20px;border:0}
+.hero.pdf-hero .hero-controls .hero-dot.is-active{background:#F4566C;min-width:25px;width:25px}
+.hero.pdf-hero .hero-slide{transition:opacity 1.05s ease-in-out!important;will-change:opacity}
+@media(max-width:820px){.hero.pdf-hero .hero-controls{bottom:110px;right:28px;}}
+@media(max-width:600px){
+ .hero.pdf-hero .hero-controls{right:18px;bottom:132px;gap:7px}
+ .hero.pdf-hero .hero-controls>button{width:30px;height:30px;min-width:30px;font-size:20px}
+ .hero.pdf-hero .hero-controls .hero-dots{gap:5px}
+ .hero.pdf-hero .hero-controls .hero-dot.is-active{width:21px;min-width:21px}
+}
+@media(prefers-reduced-motion:reduce){.hero.pdf-hero .hero-slide{transition:none!important;will-change:auto}}
+
+/* Header CTA was overridden by an older higher-specificity V4.2 rule. */
+.site-header .header-plan,.site-header .button-gradient{background:var(--premium-cta)!important;color:#fff!important}
+/* Keep the heritage proof row clear of the floating search form. */
+.hero.pdf-hero .hero-proof{margin-top:19px!important}
+@media(max-width:600px){.hero.pdf-hero .hero-proof{margin-top:24px!important}}
+@media(max-width:360px){.hero.pdf-hero .hero-proof{margin-top:16px!important}}

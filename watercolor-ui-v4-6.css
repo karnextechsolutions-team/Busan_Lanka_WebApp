@@ -1,0 +1,169 @@
+/* Busan Lanka v4.6 — customer-provided watercolor wave image.
+ * Original visual: user-provided green/gold/orange/pink watercolor waves.
+ * The image is locally bundled, not fetched from a third-party host.
+ * Soft overlays are CSS-only, keeping the original image and visible text legible.
+ * Loaded AFTER all prior V4.5 public CSS; does not alter application JS or CMS.
+ */
+:root {
+ --busan-watercolor: url('./assets/busan-original-watercolor-waves-v46.webp');
+ --busan-ivory:#fffbf5;
+ --busan-dark:#272321;
+ --busan-glass:rgba(255,255,255,.88);
+ --busan-card-border:rgba(242,166,122,.23);
+ --busan-elevate:0 16px 45px rgba(82,49,38,.10);
+}
+html {scroll-behavior:smooth}
+body {background:#fffbf5;color:var(--busan-dark)}
+/* Shared key visual: original watercolor wave asset remains readable at both
+   mobile and desktop sizes. Transparent white gradient prevents harsh saturation. */
+.pdf-destinations::before {
+ background-image:
+  linear-gradient(120deg,rgba(255,252,246,.54),rgba(255,249,242,.38) 51%,rgba(255,247,249,.51)),
+  var(--busan-watercolor)!important;
+ background-position:center,center 51%!important;
+ background-size:cover,cover!important;
+ background-repeat:no-repeat!important;
+}
+.pdf-destinations::after {display:none!important}
+.pdf-destinations .section-kicker {color:#965035!important}
+.pdf-destinations .section-heading h2 {color:#25231e;text-shadow:0 2px 18px rgba(255,255,255,.66)}
+.pdf-view-all {color:#532d30!important;border-bottom-color:#e95370!important}
+.pdf-destinations .destination-card {border:1px solid rgba(255,255,255,.6)!important;box-shadow:0 16px 42px rgba(60,30,30,.17)!important}
+/* Services section — noticeably colorful at the edges, calm behind text. */
+.pdf-services {
+ background-image:
+  linear-gradient(100deg,rgba(255,252,246,.39),rgba(255,251,247,.32) 48%,rgba(255,247,246,.43)),
+  var(--busan-watercolor)!important;
+ background-size:cover,cover!important;
+ background-position:center,center 63%!important;
+ background-repeat:no-repeat!important;
+}
+.pdf-services::after{display:none!important}
+.pdf-services-title{color:#28231f;text-shadow:0 2px 16px rgba(255,255,255,.47)}
+.pdf-service,
+.pdf-service:nth-child(1),
+.pdf-service:nth-child(2),
+.pdf-service:nth-child(3),
+.pdf-service:nth-child(4) {
+ background:rgba(255,255,255,.84)!important;
+ border:1px solid rgba(255,255,255,.75)!important;
+ box-shadow:var(--busan-elevate),inset 0 1px 0 rgba(255,255,255,.72)!important;
+ -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+}
+.pdf-service:hover {box-shadow:0 18px 50px rgba(130,51,35,.16)!important;transform:translateY(-3px)}
+.pdf-service h3{color:#28221e}.pdf-service p{color:#60534e}
+.pdf-icon-orange{background:linear-gradient(130deg,#fad888,#f75703)!important}
+.pdf-icon-coral{background:linear-gradient(130deg,#f4566c,#e99e45)!important}
+.pdf-icon-green{background:linear-gradient(130deg,#fad888,#1b673d)!important}
+.pdf-icon-rose{background:linear-gradient(130deg,#f4566c,#cc0503)!important}
+.review-service-cta{background:var(--premium-cta)!important}
+/* Tours: full photographic catalogue remains legible over a subtle watercolor wash. */
+.section-tours {
+ background-image:
+   linear-gradient(104deg,rgba(255,252,246,.50),rgba(255,250,245,.40) 48%,rgba(255,247,248,.50)),
+   var(--busan-watercolor)!important;
+ background-position:center,center 58%!important;
+ background-size:cover,cover!important;
+ background-repeat:no-repeat!important;
+}
+.section-tours::before{display:none!important}
+.section-tours .tour-card{background:rgba(255,255,255,.94)!important;border-color:rgba(255,255,255,.72)!important;box-shadow:0 15px 42px rgba(89,45,34,.13)!important}
+.section-tours .section-heading h2{color:#29201e}.section-tours .section-heading h2 em{color:#c93565!important}
+.section-tours .filters .filter:not(.active){background:rgba(255,255,255,.85)!important}
+/* AI section: center is light, watercolor frame surrounds the explanation/chat. */
+.ai-section::before {
+ background-image:
+  linear-gradient(105deg,rgba(255,252,247,.51),rgba(255,255,251,.37) 48%,rgba(255,248,247,.52)),
+  var(--busan-watercolor)!important;
+ background-position:center,center!important;
+ background-size:cover,cover!important;
+ background-repeat:no-repeat!important;
+}
+.ai-section::after{display:none!important}
+.ai-preview{background:rgba(255,255,255,.90)!important;border:1px solid rgba(255,255,255,.70)!important;box-shadow:0 20px 54px rgba(97,40,40,.13)!important;backdrop-filter:blur(12px)}
+.ai-left h2{color:#292323}.ai-left h2 em{color:#c93565!important}
+/* QR guide / itinerary introduction: watercolor fades into white at the center. */
+.journey-section {
+ background-image:
+  linear-gradient(120deg,rgba(255,250,246,.48),rgba(255,251,250,.44) 51%,rgba(255,245,247,.52)),
+  var(--busan-watercolor)!important;
+ background-size:cover,cover!important;
+ background-position:center,center 55%!important;
+ background-repeat:no-repeat!important;
+}
+/* Stories + guest reviews get the same coherent background treatment. */
+.gallery-section {
+ background-image:
+  linear-gradient(108deg,rgba(255,252,245,.55),rgba(255,255,250,.46) 49%,rgba(255,244,245,.53)),
+  var(--busan-watercolor)!important;
+ background-position:center,center 47%!important;
+ background-size:cover,cover!important;
+ background-repeat:no-repeat!important;
+}
+.guest-reviews-section{
+ background-image:
+  linear-gradient(105deg,rgba(255,252,246,.53),rgba(255,250,248,.48) 51%,rgba(255,248,249,.52)),
+  var(--busan-watercolor)!important;
+ background-position:center,center 58%!important;
+ background-size:cover,cover!important;
+ background-repeat:no-repeat!important;
+}
+.guest-review-card,.review-tile{
+ background:rgba(255,255,255,.92)!important;
+ border:1px solid rgba(255,255,255,.80)!important;
+ box-shadow:0 15px 42px rgba(87,40,41,.13)!important;
+}
+.guest-review-quote{color:#49403c}
+.review-read-toggle{color:#b92163!important}
+/* Final CTA: subtle supplied watercolor outside the strong brand pink/blue CTA. */
+.last-cta {
+ background-image:
+   linear-gradient(110deg,rgba(255,252,246,.43),rgba(255,250,246,.37),rgba(255,244,244,.47)),
+   var(--busan-watercolor)!important;
+ background-size:cover,cover!important;
+ background-position:center,center 62%!important;
+ background-repeat:no-repeat!important;
+}
+.last-cta .cta-inner{border:1px solid rgba(255,255,255,.55);box-shadow:0 23px 59px rgba(151,47,85,.23)!important}
+/* Floating search panel + review form keep crisp, accessible text contrast. */
+.pdf-search{background:rgba(255,253,250,.96)!important;border:1px solid rgba(255,255,255,.86)!important;border-top:3px solid #e99e45!important;backdrop-filter:blur(10px)}
+.guest-review-dialog,.contact-modal{box-shadow:0 25px 70px rgba(30,23,27,.28)}
+/* Signature logo subtitle and main action buttons remain pink-to-blue, as requested in V4.3. */
+.site-header .header-plan,.site-header .button-gradient,
+.button-gradient,.floating-ai,#guestReviewSubmit,.guest-reviews-head .button,
+.pdf-search-submit,.pdf-explore-btn,#submitEnquiryButton,.review-service-cta {
+ background:var(--premium-cta,linear-gradient(105deg,#e50058,#d80b65 40%,#0954ad))!important;
+ color:#fff!important;
+}
+/* Preserve the original dark-contrasted Kandy and tour photos. */
+.pdf-why,.hero.pdf-hero{background-color:#23352c}
+/* Mobile: show all brand hues rather than cropping everything to the cream center. */
+@media(max-width:760px){
+ .pdf-destinations::before,.ai-section::before{
+  background-size:cover,100% 100%!important;
+  background-position:center,center!important;
+ }
+ .pdf-services,.section-tours,.journey-section,.gallery-section,
+ .guest-reviews-section,.last-cta{
+  background-size:cover,100% 100%!important;
+  background-position:center,center!important;
+ }
+ .pdf-service,.pdf-service:nth-child(n),.ai-preview,.guest-review-card{backdrop-filter:none;-webkit-backdrop-filter:none}
+}
+@media(max-width:600px){
+ .pdf-destinations::before{
+  background-image:
+  linear-gradient(120deg,rgba(255,251,244,.59),rgba(255,250,242,.48),rgba(255,247,248,.59)),
+  var(--busan-watercolor)!important;
+ }
+ .ai-section::before{
+  background-image:
+  linear-gradient(115deg,rgba(255,252,245,.59),rgba(255,255,251,.43),rgba(255,244,248,.58)),
+  var(--busan-watercolor)!important;
+ }
+ .guest-reviews-section{background-image:
+  linear-gradient(120deg,rgba(255,252,247,.59),rgba(255,249,247,.51),rgba(255,250,246,.61)),
+  var(--busan-watercolor)!important}
+ .pdf-service:hover{transform:none}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

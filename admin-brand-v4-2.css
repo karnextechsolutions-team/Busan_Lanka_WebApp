@@ -1,0 +1,18 @@
+/* Busan Lanka V4.2 admin visual palette. Business logic untouched. */
+:root {--brand-green:#1B673D;--brand-gold:#E99E45;--brand-light-gold:#FAD888;--brand-pink:#F4566C;--brand-red:#CC0503;--brand-orange:#F75703;
+ --admin-cta:linear-gradient(100deg,#E50058,#D80B65 43%,#87409C 70%,#0954AD);}
+body{background:radial-gradient(ellipse at 88% 9%,rgba(244,86,108,.09),transparent 35%),linear-gradient(150deg,#FFF9F2,#FFF0DF 75%,#FFF7F0)}
+.admin-top{border-top:4px solid #F75703;background:linear-gradient(110deg,#FFFDF9,#FFF2E7 65%,#FFE7EA)}
+.admin-sidebar{background:radial-gradient(ellipse at 10% 0%,rgba(27,103,61,.40),transparent 46%),linear-gradient(160deg,#27231E,#482B26 78%,#CC0503)}
+.nav-link.active,.gold-btn,.mobile-menu-toggle,.admin-mobile-nav button.active{background:var(--admin-cta)!important;color:#fff!important}
+.dashboard-banner{background:linear-gradient(102deg,rgba(37,32,27,.88),rgba(103,37,26,.58)),url('./assets/sigiriya-aerial.webp') center/cover}
+.dashboard-banner>span{color:#FAD888}.dashboard-banner a{background:var(--admin-cta);color:#fff}
+.stat-grid article:nth-child(4n+1){border-top:5px solid #1B673D}
+.stat-grid article:nth-child(4n+2){border-top:5px solid #E99E45}
+.stat-grid article:nth-child(4n+3){border-top:5px solid #F4566C}
+.stat-grid article:nth-child(4n+4){border-top:5px solid #F75703}
+.workspace-header .kicker{color:#1B673D}
+.editor-item.selected{background:#FFF0EA;border-color:#F4566C}
+.day-tabs button.active{background:#FAD888;border-color:#E99E45;color:#522019}
+.mode-badge{background:#FFF0DC;border-color:#E99E45;color:#692D19}
+.admin-mobile-nav{border-top:3px solid #E99E45}
