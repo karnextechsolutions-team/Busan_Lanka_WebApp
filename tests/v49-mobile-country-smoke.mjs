@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
+const admin=read('admin.js'), app=read('app.js'), css=read('package-mobile-v4-9.css');
+assert(admin.includes('matchingCountries(raw)'));
+assert(admin.includes('data-country-query'));
+assert(admin.includes('data-country-code'));
+assert(admin.includes('aria-activedescendant'));
+assert(admin.includes('reviewState.draft.country_code=match.code'));
+assert(app.includes('selectedDay=next;'));
+assert(app.includes('drawPackageDay();'));
+assert(css.includes('grid-template-columns:minmax(0,1fr)!important'));
+assert(css.includes('overflow-x:auto!important'));
+assert(css.includes('height:calc(100svh - 18px)!important'));
+assert(read('index.html').includes('package-mobile-v4-9.css?v=49'));
+assert(read('admin.html').includes('admin-country-search-v4-9.css?v=49'));
+assert(read('tools/build-netlify.mjs').includes('admin-country-search-v4-9.css'));
+console.log('PASS V4.9 mobile itinerary, single column, scrollable day selector and admin country search source checks');

@@ -1,3 +1,10 @@
+## V4.9: Mobile package itinerary + searchable country selector
+
+- **Admin → Reviews & Moderation:** search countries by a few letters/code, choose flag/country using mouse or keyboard. Review data and Supabase SQL unchanged.
+- **Public tour package popup:** mobile/tablet single-column itinerary, horizontally swipeable days, full-width day descriptions, highlights and photos. Larger mobile modal for comfortable reading.
+- Existing V4.8 GET review-feed/CORS update preserved. No new SQL or function deployment required for these UI fixes.
+- `node tools/build-netlify.mjs` builds static Netlify `dist/`. Deploy by pushing to GitHub-connected Netlify repository.
+
 # CURRENT RELEASE — V4.7 Enquiry Channels, Mobile Navigation & Reviews Carousel
 
 This ZIP is the complete V4.6 watercolor website plus the V4.7 functionality update. It retains all prior CMS, package pages, QR tour, reviews moderation, Supabase and Gemini source.

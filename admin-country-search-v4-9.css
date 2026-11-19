@@ -1,0 +1,30 @@
+/* Busan Lanka V4.9 — searchable country + flag picker for review editor. */
+.admin-review-edit .country-search-field{position:relative;min-width:0;margin-bottom:13px;}
+.country-search-field > label{display:block;color:#333b4d;font-size:12px;font-weight:750;margin-bottom:7px;}
+.country-search-combobox{position:relative;min-width:0;}
+.admin-review-edit .country-search-combobox input[type="search"]{
+ box-sizing:border-box;width:100%;min-width:0;min-height:48px;
+ padding:12px 42px 12px 13px;border:1px solid #ddd3c8;border-radius:11px;
+ background:white;color:#272b35;font:inherit;font-size:14px;
+}
+.country-search-combobox input:focus-visible{outline:2px solid #e63b69;outline-offset:1px;}
+.country-search-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);pointer-events:none;color:#b04b58;font-size:22px;}
+.country-search-options[hidden]{display:none!important;}
+.country-search-options{
+ position:absolute;z-index:30;top:calc(100% - 17px);left:0;right:0;
+ background:#fff;border:1px solid #edcbbd;border-radius:12px;
+ box-shadow:0 15px 32px rgba(40,30,28,.18);padding:6px;
+ max-height:260px;overflow-y:auto;overscroll-behavior:contain;
+}
+.country-search-options button{
+ width:100%;min-width:0;display:flex;align-items:center;gap:10px;
+ border:0;background:transparent;border-radius:8px;padding:10px 11px;
+ color:#242730;cursor:pointer;font-size:13px;text-align:left;
+}
+.country-search-options button span:nth-child(2){flex:1;min-width:0;overflow-wrap:break-word;}
+.country-option-flag{font-size:20px;flex-shrink:0;}
+.country-search-options button small{color:#8b7381;}
+.country-search-options button[aria-selected="true"],.country-search-options button:hover{background:#fff0e9;color:#ad174d;}
+.country-search-help{display:block;font-size:11px;color:#7f747b;margin:6px 0 0;line-height:1.45;}
+.country-search-empty{font-size:12px;padding:10px;color:#786d78;}
+@media(max-width:760px){.country-search-options{max-height:min(40dvh,250px);}}

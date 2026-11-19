@@ -126,13 +126,14 @@ function reviewsModerationPanel(){
  if(reviewState.loading)return '<div class="info-panel">Loading review moderation inbox...</div>';
  if(reviewState.error)return `<div class="info-panel"><p class="inline-warning">${esc(reviewState.error)}</p><button class="neutral-btn" data-review-action="refresh">Retry</button></div>`;
  const r=reviewState.draft||(reviewState.draft=blankReview());
- const opts=COUNTRIES.map(c=>`<option value="${c.code}" ${c.code===r.country_code?'selected':''}>${flagFor(c.code)} ${esc(c.name)}</option>`).join('');
+ const selectedCountry=COUNTRIES.find(c=>c.code===r.country_code);
+ const countryText=selectedCountry?`${flagFor(selectedCountry.code)} ${selectedCountry.name}`:'';
  const tripOpts=['Couples','Family','Friends','Solo','Business','Other'].map(v=>`<option value="${v}" ${v===r.trip_type?'selected':''}>${v}</option>`).join('');
  return `<div class="review-db-warning"><b>${isReviewsCloud()?'SUPABASE CLOUD MODE':'LOCAL DEMO — SAME BROWSER ONLY'}</b><br>All visitor reviews begin as pending. Photos are stored in a private bucket; only approved reviews appear publicly. Add your own genuine reviews with the guest's permission. <b>Legacy CMS Reviews</b> remain available in the separate sidebar item.</div>
  <div class="collection-header"><h2>Review moderation (${reviewState.items.length})</h2><div class="admin-review-controls"><button type="button" class="neutral-btn" data-review-action="refresh">↻ Refresh</button><button type="button" class="gold-btn" data-review-action="new">＋ Add review</button></div></div>
  <div class="admin-review-layout"><aside class="admin-review-items">
  ${reviewState.items.length?reviewState.items.map(v=>`<button type="button" class="admin-review-item ${reviewState.selected===v.id?'active':''}" data-review-id="${esc(v.id)}"><strong>${esc(v.name)}</strong><small>${flagFor(v.country_code)} ${esc(v.country_code)} · ${Number(v.rating)||5} ★</small><span class="review-status ${esc(v.status)}">${esc(v.status)}</span></button>`).join(''):'<p>No reviews submitted yet.</p>'}
- </aside><div class="admin-review-edit"><h2>${r.id?'Edit guest review':'Add genuine guest review'}</h2><div class="review-form-row"><label class="field"><span>Guest name</span><input data-review-field="name" maxlength="90" value="${esc(r.name)}"/></label><label class="field"><span>Country + flag</span><select data-review-field="country_code"><option value="">Choose country</option>${opts}</select></label></div>
+ </aside><div class="admin-review-edit"><h2>${r.id?'Edit guest review':'Add genuine guest review'}</h2><div class="review-form-row"><label class="field"><span>Guest name</span><input data-review-field="name" maxlength="90" value="${esc(r.name)}"/></label><div class="field country-search-field" data-country-picker><label for="adminReviewCountrySearch">Country + flag</label><div class="country-search-combobox"><input id="adminReviewCountrySearch" type="search" data-country-query role="combobox" aria-label="Search country by name or code" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="adminReviewCountryOptions" autocomplete="off" spellcheck="false" placeholder="Type e.g. Net, Sri, UK…" value="${esc(countryText)}"/><span class="country-search-icon" aria-hidden="true">⌕</span><input type="hidden" data-review-field="country_code" value="${esc(r.country_code||'')}"/></div><div class="country-search-options" id="adminReviewCountryOptions" role="listbox" aria-label="Countries" hidden></div><small class="country-search-help" data-country-help>Select a country from the matching flags below.</small></div></div>
  <div class="review-form-row"><label class="field"><span>Date visited (month / year)</span><input data-review-field="visited_month" type="month" value="${esc(String(r.visited_month||'').slice(0,7))}"/></label><label class="field"><span>Trip type</span><select data-review-field="trip_type">${tripOpts}</select></label></div>
  <div class="review-form-row"><label class="field"><span>Stars (1–5)</span><select data-review-field="rating">${[1,2,3,4,5].map(n=>`<option value="${n}" ${Number(r.rating)===n?'selected':''}>${'★'.repeat(n)} (${n})</option>`).join('')}</select></label><label class="field"><span>Moderation status</span><select data-review-field="status">${['pending','approved','rejected'].map(v=>`<option value="${v}" ${r.status===v?'selected':''}>${v}</option>`).join('')}</select></label></div>
  <label class="field"><span>Review title</span><input data-review-field="title" maxlength="120" value="${esc(r.title)}"/></label><label class="field"><span>Review text (minimum 15 characters)</span><textarea rows="6" data-review-field="review_text" maxlength="2500">${esc(r.review_text)}</textarea></label>
@@ -142,6 +143,59 @@ function reviewsModerationPanel(){
  </div></div>`;
 }
 async function loadGuestModeration(){reviewState.loading=true;reviewState.error='';if(state.section==='guestreviews')render();try{reviewState.items=await listModerationReviews();const old=reviewState.selected;reviewState.draft=old==='new'?reviewState.draft||blankReview():reviewState.items.find(x=>x.id===old)||reviewState.items[0]||blankReview();reviewState.selected=reviewState.draft.id||'new'}catch(e){reviewState.error=e.message;}finally{reviewState.loading=false;if(state.section==='guestreviews')render()}}
+// V4.9 — Accessible searchable ISO country selector for review moderation.
+// Keep the country code in the existing review draft (and database schema).
+let countryActiveIndex=-1;
+function matchingCountries(raw){
+ const q=String(raw||'').trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase();
+ if(!q)return COUNTRIES.slice(0,14);
+ return COUNTRIES.filter(c=>`${c.name} ${c.code}`.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase().includes(q)).slice(0,16);
+}
+function showCountryOptions(query){
+ const picker=$('[data-country-picker]');if(!picker)return;
+ const input=picker.querySelector('[data-country-query]');
+ const list=picker.querySelector('[role="listbox"]');
+ const matches=matchingCountries(query);
+ countryActiveIndex=-1;
+ list.innerHTML=matches.length?matches.map((c,i)=>`<button type="button" role="option" id="reviewCountryOption${i}" aria-selected="false" data-country-code="${c.code}"><span class="country-option-flag" aria-hidden="true">${flagFor(c.code)}</span><span>${esc(c.name)}</span><small>${c.code}</small></button>`).join(''):'<p class="country-search-empty">No matching countries. Try another name or 2-letter code.</p>';
+ list.hidden=false;
+ input.setAttribute('aria-expanded','true');
+ input.removeAttribute('aria-activedescendant');
+}
+function hideCountryOptions(){
+ const picker=$('[data-country-picker]');if(!picker)return;
+ const input=picker.querySelector('[data-country-query]');
+ const list=picker.querySelector('[role="listbox"]');
+ list.hidden=true;
+ input.setAttribute('aria-expanded','false');
+ input.removeAttribute('aria-activedescendant');
+ countryActiveIndex=-1;
+}
+function selectCountryCode(code){
+ const match=COUNTRIES.find(c=>c.code===code);if(!match||!reviewState.draft)return;
+ reviewState.draft.country_code=match.code;
+ const picker=$('[data-country-picker]');if(!picker)return;
+ picker.querySelector('[data-review-field="country_code"]').value=match.code;
+ const input=picker.querySelector('[data-country-query]');
+ input.value=`${flagFor(match.code)} ${match.name}`;
+ picker.querySelector('[data-country-help]').textContent=`Selected: ${match.name} (${match.code})`;
+ input.focus({preventScroll:true});hideCountryOptions();
+}
+function handleCountryKey(e){
+ const picker=e.target.closest('[data-country-picker]');if(!picker)return;
+ const list=picker.querySelector('[role="listbox"]');
+ if(e.key==='Escape'){hideCountryOptions();return;}
+ if(!['ArrowDown','ArrowUp','Enter'].includes(e.key))return;
+ if(list.hidden)showCountryOptions(e.target.value);
+ const options=[...list.querySelectorAll('[data-country-code]')];if(!options.length)return;
+ e.preventDefault();
+ if(e.key==='Enter'){selectCountryCode(options[Math.max(0,countryActiveIndex)].dataset.countryCode);return;}
+ countryActiveIndex=e.key==='ArrowDown'?(countryActiveIndex+1)%options.length:(countryActiveIndex+options.length-1)%options.length;
+ options.forEach((option,i)=>option.setAttribute('aria-selected',String(i===countryActiveIndex)));
+ e.target.setAttribute('aria-activedescendant',options[countryActiveIndex].id);
+ options[countryActiveIndex].scrollIntoView({block:'nearest'});
+}
+
 const captureReviewField=el=>{if(!reviewState.draft)return;const name=el.dataset.reviewField;if(!name)return;reviewState.draft[name]=name==='rating'?Number(el.value):name==='visited_month'?(el.value?el.value+'-01':''):el.value;};
 async function saveReviewedRecord(){const r=reviewState.draft;if(!r)return;const date=String(r.visited_month||'').slice(0,7);if(String(r.name||'').trim().length<2||!/^[A-Z]{2}$/.test(r.country_code)||!r.title?.trim()||r.title.trim().length<2||r.review_text?.trim().length<15||!/^[0-9]{4}-(0[1-9]|1[0-2])$/.test(date)||date>new Date().toISOString().slice(0,7)){throw new Error('Complete guest name, country, date, title, and at least 15 characters of review text.');}if((r.photo_paths||[]).length>2)throw Error('Maximum two photos.');if(!r.id&&!r.consentAcknowledged)throw Error('Confirm the guest gave permission to publish this review.');const data=await saveAdminReview(r);reviewState.selected=data.id;await loadGuestModeration();setStatus('Review saved. Public display depends on approval status.','success');}
 async function reviewAction(btn){const act=btn.dataset.reviewAction;
@@ -161,6 +215,7 @@ function addNew(key){const id=guid();const things={slides:()=>({id,image:'assets
  if(!things[key])return;state.data[key].push(things[key]());state.index=state.data[key].length-1;state.day=0;dirty();render();}
 async function handleLeadAction(button){try{button.disabled=true;await updateEnquiryStatus(button.dataset.leadId,button.dataset.leadStatus);setStatus(supabaseEnabled?'Enquiry status updated in Supabase.':'Enquiry status saved locally (DEMO).','success');await loadEnquiriesPanel();}catch(err){setStatus(err.message,'error');button.disabled=false;}}
 function onClick(e){
+ const country=e.target.closest('[data-country-code]');if(country){selectCountryCode(country.dataset.countryCode);return;}
  const revSel=e.target.closest('[data-review-id]');if(revSel){const found=reviewState.items.find(r=>r.id===revSel.dataset.reviewId);if(found){prepareDraft(found);render();}return;}
  const revDel=e.target.closest('[data-review-photo-delete]');if(revDel){const i=Number(revDel.dataset.reviewPhotoDelete);reviewState.draft.photo_paths.splice(i,1);reviewState.draft.photo_urls?.splice(i,1);render();return;}
  const revBtn=e.target.closest('[data-review-action]');if(revBtn){reviewAction(revBtn);return;}
@@ -203,7 +258,10 @@ $('#closeAdminMenu').addEventListener('click',closeAdminDrawer);$('#adminDrawerS
 $('#mobileAdminMore').addEventListener('click',openAdminDrawer);
 $$('[data-mobile-section]').forEach(button=>button.addEventListener('click',()=>changeSection(button.dataset.mobileSection)));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAdminDrawer();});
-$('#editor').addEventListener('input',e=>e.target.dataset.reviewField?captureReviewField(e.target):setField(e.target));$('#editor').addEventListener('change',e=>{if(e.target.id==='adminReviewConsent'){reviewState.draft.consentAcknowledged=e.target.checked;return;}if(e.target.dataset.reviewField)captureReviewField(e.target);else if(e.target.matches('[data-stock],[data-bool],select[data-path]'))setField(e.target);});
+$('#editor').addEventListener('input',e=>{if(e.target.matches('[data-country-query]')){reviewState.draft.country_code='';const picker=e.target.closest('[data-country-picker]');picker.querySelector('[data-review-field="country_code"]').value='';picker.querySelector('[data-country-help]').textContent='Select one of the suggested countries to save.';showCountryOptions(e.target.value);return;}e.target.dataset.reviewField?captureReviewField(e.target):setField(e.target);});
+$('#editor').addEventListener('focusin',e=>{if(e.target.matches('[data-country-query]')){e.target.select();showCountryOptions('');}});
+$('#editor').addEventListener('keydown',e=>{if(e.target.matches('[data-country-query]'))handleCountryKey(e);});
+document.addEventListener('click',e=>{if(!e.target.closest('[data-country-picker]'))hideCountryOptions();});$('#editor').addEventListener('change',e=>{if(e.target.id==='adminReviewConsent'){reviewState.draft.consentAcknowledged=e.target.checked;return;}if(e.target.dataset.reviewField)captureReviewField(e.target);else if(e.target.matches('[data-stock],[data-bool],select[data-path]'))setField(e.target);});
 $('#editLang').addEventListener('change',e=>{state.locale=e.target.value;state.search='';render();});
 $('#saveButton').addEventListener('click',save);
 $('#logoutButton').addEventListener('click',()=>{if(supabaseEnabled){signOut();location.reload();}else{if(confirm('Reset all local demo changes to the original sample content?')){resetDemo();location.reload();}}});
