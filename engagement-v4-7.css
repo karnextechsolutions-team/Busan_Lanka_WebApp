@@ -62,3 +62,14 @@
 @media(max-width:365px){.site-header .brand img{width:35px!important;height:40px!important}.site-header .brand-type b{font-size:10.4px!important}.site-header .brand-type small{font-size:5.5px!important;padding:3px 6px!important}.site-header .lang-select{min-width:50px;padding:7px 2px!important}.public-menu-toggle{min-width:40px}.social-channel-settings{grid-template-columns:1fr}}
 @media(max-width:750px){.social-channel-settings{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){#reviewsGrid{scroll-behavior:auto!important}.enquiry-channel-button{transition:none!important}}
+
+/* V4.10: recognizable bundled brand icons (no external CDN requests). */
+.channel-symbol img{width:23px;height:23px;display:block;object-fit:contain;max-width:100%;pointer-events:none}
+.channel-whatsapp{background:#25D366}
+.channel-telegram{background:#229ED9}
+.channel-instagram{background:linear-gradient(135deg,#FEDA75 0%,#FA7E1E 20%,#D62976 54%,#962FBF 78%,#4F5BD5 100%)}
+.channel-messenger{background:linear-gradient(135deg,#00B2FF,#006AFF 58%,#9B31FF)}
+@media(max-width:600px){.channel-symbol img{width:21px;height:21px}}
+
+.admin-social-brand.channel-symbol{display:inline-grid;vertical-align:middle;width:30px;height:30px;border-radius:9px;margin:0 5px 0 2px;flex:none}
+.admin-social-brand.channel-symbol img{width:19px;height:19px}

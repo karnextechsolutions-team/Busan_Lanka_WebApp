@@ -29,5 +29,5 @@ assert(api.includes('preferred_channel:channel')&&migration.includes('preferred_
 assert(css.includes('grid-auto-columns:calc((100% - 2 * var(--review-gap))/3)'));
 assert(read('guest-reviews.js').includes('reviewCarouselTimer'));
 assert(read('tools/build-netlify.mjs').includes('enquiry-channels.js'));
-assert(read('sw.js').includes('busan-lanka-v4-7-'));
+assert(read('sw.js').includes('busan-lanka-v4-10-'));
 console.log('PASS V4.7: 4 channels, safe links, opt-ins, local ledger, async cloud save, menu, reviews carousel, SQL schema, Netlify assets');

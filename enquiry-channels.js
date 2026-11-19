@@ -2,10 +2,10 @@
  * External chat links initiate a hand-off; they do NOT prove message delivery.
  */
 export const CHANNEL_INFO = [
- {id:'whatsapp',name:'WhatsApp',icon:'◉',setting:'whatsapp',enabled:'contactWhatsappEnabled'},
- {id:'telegram',name:'Telegram',icon:'➤',setting:'telegram',enabled:'contactTelegramEnabled'},
- {id:'instagram',name:'Instagram',icon:'◎',setting:'instagram',enabled:'contactInstagramEnabled'},
- {id:'messenger',name:'Messenger',icon:'◌',setting:'messenger',enabled:'contactMessengerEnabled'},
+ {id:'whatsapp',name:'WhatsApp',icon:'./assets/social-whatsapp.svg',setting:'whatsapp',enabled:'contactWhatsappEnabled'},
+ {id:'telegram',name:'Telegram',icon:'./assets/social-telegram.svg',setting:'telegram',enabled:'contactTelegramEnabled'},
+ {id:'instagram',name:'Instagram',icon:'./assets/social-instagram.svg',setting:'instagram',enabled:'contactInstagramEnabled'},
+ {id:'messenger',name:'Messenger',icon:'./assets/social-messenger.svg',setting:'messenger',enabled:'contactMessengerEnabled'},
 ];
 export const CHANNEL_NAMES=Object.fromEntries(CHANNEL_INFO.map(c=>[c.id,c.name]));
 const LOCAL_KEY='busan-v47-enquiry-local-demo';

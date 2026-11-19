@@ -137,7 +137,7 @@ function openPhoto(src,alt){const dialog=$('#photoLightbox');$('#fullPhoto').src
 function renderEnquiryChannels(){
  const choices=enabledChannels(content.settings||{});
  const list=$('#enquiryChannelOptions');
- list.innerHTML=choices.length?choices.map(c=>`<button type="submit" class="enquiry-channel-button" data-channel="${c.id}" aria-label="Save enquiry then open ${c.name}"><span aria-hidden="true" class="channel-symbol channel-${c.id}">${c.icon}</span><strong>${c.name}</strong><small>${esc(t('contactOpenChat'))} ↗</small></button>`).join(''):
+ list.innerHTML=choices.length?choices.map(c=>`<button type="submit" class="enquiry-channel-button" data-channel="${c.id}" aria-label="Save enquiry then open ${c.name}"><span aria-hidden="true" class="channel-symbol channel-${c.id}"><img src="./assets/social-${c.id}.svg" alt="" width="23" height="23" decoding="async"/></span><strong>${c.name}</strong><small>${esc(t('contactOpenChat'))} ↗</small></button>`).join(''):
  `<button type="submit" class="enquiry-channel-button" data-channel="copy"><span class="channel-symbol">▤</span><strong>${esc(t('contactCopyChoice'))}</strong><small>${esc(t('contactNoChannel'))}</small></button>`;
 }
 function openContact(pkg=''){
@@ -189,7 +189,14 @@ async function sendEnquiry(e){
   }else if(channel==='copy'){
    status.textContent=`Enquiry saved${saved.mode==='local'?' in this browser only':''}. Message copied to your clipboard.`;
   }else {popup?.close();throw Error('The selected social account has no valid chat link.');}
- }catch(err){popup?.close();status.textContent=`Unable to save enquiry: ${err.message}. Please retry. No message has been sent.`;}
+ }catch(err){
+  popup?.close();
+  const failedNetwork=err?.name==='TypeError' || /Failed to fetch|NetworkError|Load failed/i.test(String(err?.message||''));
+  status.textContent=failedNetwork
+   ? 'Unable to connect to our enquiry service right now. Your enquiry has NOT been saved or sent. Please try again shortly.'
+   : `Unable to save enquiry: ${err.message}. Please retry. No message has been sent.`;
+  console.warn('Enquiry submission failed — check Supabase submit-enquiry function deployment, preflight response and logs.',err);
+ }
  finally{enquiryInFlight=false;buttons.forEach(b=>b.disabled=false)}
 }
 
