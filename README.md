@@ -88,3 +88,7 @@ Guest review form (country/flag, five stars, visited month/year, trip type, titl
 ## V4.5 admin/reviews stability patch
 
 This release fixes the V4.4 Admin white screen (`admin.js` parse error), adds submitted-date-relative labels (from `created_at`), and collapses long reviews to five lines with `Read more / Read less`. See `V4_5_FIXES_SINHALA.md`. No schema migration is required if V4.4 reviews SQL is already applied.
+
+## V4.8 — Live reviews CORS + tablet header fix
+
+See [`V4_8_LIVE_CORS_TABLET_FIX.md`](V4_8_LIVE_CORS_TABLET_FIX.md). Public review feed now uses GET (POST remains supported for older clients); precise origin allowlisting and Edge Function JWT config are included. After deploying, set `BUSAN_ALLOWED_ORIGINS` in Supabase Secrets and redeploy `review-feed` as directed. Tablet widths now use a left-aligned brand and right-aligned Language + Menu controls.

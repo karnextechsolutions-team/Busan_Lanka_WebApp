@@ -1,19 +1,26 @@
 export type JsonObject = Record<string, unknown>;
-const localOrigins = ['http://localhost:8080', 'http://127.0.0.1:8080'];
+// Only concrete, verified hosts are allowed. Add any later custom domain through
+// BUSAN_ALLOWED_ORIGINS (comma-separated, without trailing slashes).
+const localOrigins = [
+ 'http://localhost:8080',
+ 'http://127.0.0.1:8080',
+ 'https://tranquil-marshmallow-7cd3a4.netlify.app', // currently deployed preview host
+];
 export function checkOrigin(request: Request): string | null {
  const origin = request.headers.get('origin');
- const configured = (Deno.env.get('BUSAN_ALLOWED_ORIGINS') || '').split(',').map(value => value.trim()).filter(Boolean);
- if (!configured.length) return null;
- if (!origin) return configured[0];
- return [...configured, ...localOrigins].includes(origin) ? origin : null;
+ const configured = (Deno.env.get('BUSAN_ALLOWED_ORIGINS') || '').split(',')
+  .map(value => value.trim().replace(/\/$/, '')).filter(Boolean);
+ const allowed = [...new Set([...configured, ...localOrigins])];
+ if (!origin) return allowed[0] || null;
+ return allowed.includes(origin) ? origin : null;
 }
 export function response(origin: string, status: number, body: JsonObject): Response {
- return new Response(JSON.stringify(body), { status, headers: {'Content-Type':'application/json; charset=utf-8','Access-Control-Allow-Origin':origin,'Access-Control-Allow-Methods':'POST, OPTIONS','Access-Control-Allow-Headers':'apikey, authorization, content-type, x-client-info','Vary':'Origin','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'} });
+ return new Response(JSON.stringify(body), { status, headers: {'Content-Type':'application/json; charset=utf-8','Access-Control-Allow-Origin':origin,'Access-Control-Allow-Methods':'GET, POST, OPTIONS','Access-Control-Allow-Headers':'apikey, authorization, content-type, x-client-info, x-retry-count, traceparent, tracestate, baggage','Vary':'Origin','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'} });
 }
 export function preflight(request: Request): Response | null {
  const origin = checkOrigin(request);
  if (!origin) return new Response('Forbidden origin or BUSAN_ALLOWED_ORIGINS not configured', { status: 403 });
- if (request.method === 'OPTIONS') return new Response(null, {status:204, headers:{'Access-Control-Allow-Origin':origin,'Access-Control-Allow-Methods':'POST, OPTIONS','Access-Control-Allow-Headers':'apikey, authorization, content-type, x-client-info','Vary':'Origin'}});
+ if (request.method === 'OPTIONS') return new Response(null, {status:204, headers:{'Access-Control-Allow-Origin':origin,'Access-Control-Allow-Methods':'GET, POST, OPTIONS','Access-Control-Allow-Headers':'apikey, authorization, content-type, x-client-info, x-retry-count, traceparent, tracestate, baggage','Vary':'Origin'}});
  if (request.method !== 'POST') return response(origin, 405, { error: 'Method not allowed' });
  if (!request.headers.get('apikey')) return response(origin, 401, { error: 'Missing public API key' });
  return null;

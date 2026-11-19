@@ -2,8 +2,13 @@ import {checkOrigin,preflight,response,serviceCredentials,serviceHeaders} from '
 const bucket='guest-review-photos';
 const encodePath=(path:string)=>path.split('/').map(encodeURIComponent).join('/');
 Deno.serve(async request=>{
- const early=preflight(request);if(early)return early;
- const origin=checkOrigin(request)!;
+ // GET is the preferred path for public, approved-only reviews: no custom
+ // browser headers -> no OPTIONS preflight. POST stays for older V4.7 clients.
+ const origin=checkOrigin(request);
+ if (!origin) return new Response(JSON.stringify({error:'Origin not allowed. Add the site URL to BUSAN_ALLOWED_ORIGINS.'}),{status:403,headers:{'Content-Type':'application/json'}});
+ if(request.method!=='GET'){
+  const early=preflight(request);if(early)return early;
+ }
  const cred=serviceCredentials();if(!cred)return response(origin,503,{error:'Review feed not configured'});
  const res=await fetch(`${cred.url}/rest/v1/guest_reviews?status=eq.approved&select=id,name,country_code,rating,title,review_text,visited_month,trip_type,photo_paths,created_at&order=created_at.desc&limit=24`,{headers:{...serviceHeaders(cred),Prefer:'count=exact'}});
  if(!res.ok)return response(origin,502,{error:'Reviews temporarily unavailable'});

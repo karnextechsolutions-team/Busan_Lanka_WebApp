@@ -27,7 +27,8 @@ async function adminSign(path){
 }
 export async function loadApprovedReviews(){
  if(!CLOUD)return allLocal().filter(r=>r.status==='approved').sort((a,b)=>(b.created_at||'').localeCompare(a.created_at||''));
- const res=await fetch(`${base()}/functions/v1/review-feed`,{method:'POST',headers:{apikey:SUPABASE.anonKey,'Content-Type':'application/json'},body:'{}'});
+ // Public approved reviews are read-only. A simple GET avoids the browser's OPTIONS preflight.
+ const res=await fetch(`${base()}/functions/v1/review-feed`,{method:'GET',cache:'no-store'});
  const data=await parse(res,'Review feed');const reviews=data.reviews||[];reviews.totalCount=Number.isFinite(Number(data.total))?Number(data.total):reviews.length;return reviews;
 }
 export async function listModerationReviews(){

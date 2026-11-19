@@ -1,4 +1,4 @@
-import {COUNTRIES,flagFor,countryLabel,loadApprovedReviews,submitGuestReview,photoToWebp,isReviewsCloud} from './reviews-service.js';
+import {COUNTRIES,flagFor,countryLabel,loadApprovedReviews,submitGuestReview,photoToWebp,isReviewsCloud} from './reviews-service.js?v=48';
 import {publicContent} from './content-store.js';
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
